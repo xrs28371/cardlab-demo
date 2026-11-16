@@ -5,22 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>卡片工场 · X 价值计算器</title>
 <meta name="description" content="只生产值得截图发群的卡片。不登录，不授权，不存你的信息。">
-<link rel="stylesheet" href="style.css">
+<meta name="theme-color" content="#08080f">
+<link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
+<div class="bg" aria-hidden="true"><div class="bg-grid"></div><div class="bg-glow g1"></div><div class="bg-glow g2"></div></div>
 
-<!-- ===== 视图一：工具矩阵首页（骨架层） ===== -->
+<!-- ===== 视图一：工具矩阵首页（骨架层，全部由 config/tools.json 渲染） ===== -->
 <main id="view-home" class="view">
   <header class="hero">
-    <div class="brand"><span class="brand-mark">▣</span><span id="site-name">卡片工场</span><span class="brand-en" id="site-name-en">CARDLAB</span></div>
+    <div class="brand">
+      <span class="brand-tile">▣</span>
+      <span class="brand-name" id="site-name">卡片工场</span>
+      <span class="brand-en" id="site-name-en">CARDLAB</span>
+    </div>
     <h1 class="hero-title" id="site-slogan">只生产值得截图发群的卡片</h1>
-    <p class="trust" id="site-trust">不登录 · 不授权 · 不存你的信息</p>
+    <p class="trust"><span class="trust-dot"></span><span id="site-trust">不登录 · 不授权 · 不存你的信息</span></p>
   </header>
-  <section id="tool-grid" class="tool-grid"><!-- 由 config/tools.json 渲染 --></section>
+  <section id="tool-grid" class="tool-grid"></section>
   <footer class="home-foot">一个输入框 · 一个结果 · 一张卡片，够了。</footer>
 </main>
 
-<!-- ===== 视图二：工具① 输入 ===== -->
+<!-- ===== 视图二：工具页（通用壳，文案由配置注入；工具引擎按 id 注册） ===== -->
 <main id="view-tool" class="view hidden">
   <button class="back" id="btn-back-home" aria-label="返回">‹</button>
   <header class="tool-head">
@@ -36,39 +42,47 @@
     <p class="form-error hidden" id="form-error">先填一个用户名，随便谁的都行</p>
     <button type="submit" class="cta" id="tool-cta">开始估值</button>
   </form>
-  <p class="trust trust-center" id="tool-trust">不登录 · 不授权 · 不存你的用户名</p>
+  <p class="trust trust-center"><span class="trust-dot"></span><span id="tool-trust">不登录 · 不授权 · 不存你的用户名</span></p>
   <p class="fineprint" id="tool-fineprint">估值公式纯属虚构，图一乐。</p>
 </main>
 
-<!-- ===== 分析中遮罩 ===== -->
+<!-- ===== 分析中遮罩（步骤文案与时长均来自配置） ===== -->
 <div id="analysis" class="analysis hidden">
   <div class="analysis-box">
     <div class="spinner"></div>
     <p id="analysis-text">正在读取你的影响力…</p>
+    <div class="progress"><div class="progress-bar" id="progress-bar"></div></div>
   </div>
 </div>
 
-<!-- ===== 视图三：结果卡片 ===== -->
+<!-- ===== 视图三：结果卡片（9:16，卡片模板渲染） ===== -->
 <main id="view-card" class="view hidden">
   <div class="card-scale-wrap">
     <div id="card" class="card">
-      <div class="card-top">
-        <span class="card-tool">X 价值计算器</span>
-        <span class="card-brand">▣ 卡片工场</span>
-      </div>
-      <p class="card-handle" id="card-handle">@username</p>
-      <p class="card-label">估值身价</p>
-      <p class="card-value" id="card-value">¥0</p>
-      <p class="card-equiv" id="card-equiv">≈ 0 杯奶茶</p>
-      <p class="card-tier" id="card-tier">深藏不露潜力股</p>
-      <p class="card-copy" id="card-copy">数字不大，气势不能输。</p>
-      <div class="card-bottom">
-        <div class="card-watermark">
-          <p class="wm-name">卡片工场 CARDLAB</p>
-          <p class="wm-link" id="card-link">cardlab</p>
-          <p class="wm-note">估值纯属虚构 · 娱乐而已</p>
+      <div class="card-glow cg1"></div><div class="card-glow cg2"></div>
+      <div class="card-inner">
+        <div class="card-top">
+          <span class="card-tool" id="card-tool-name">X 价值计算器</span>
+          <span class="card-brand" id="card-brand">▣ 卡片工场</span>
         </div>
-        <div class="card-qr" id="card-qr"></div>
+        <p class="card-handle" id="card-handle">@username</p>
+        <div class="card-stage">
+          <div class="value-glow"></div>
+          <p class="card-label" id="card-label">估值身价</p>
+          <p class="card-value" id="card-value">¥0</p>
+          <p class="card-equiv"><span id="card-equiv">≈ 0 杯奶茶</span></p>
+        </div>
+        <p class="card-tier"><span id="card-tier">深藏不露潜力股</span></p>
+        <div class="card-copy-wrap"><p class="card-copy" id="card-copy">数字不大，气势不能输。</p></div>
+        <div class="card-divider"></div>
+        <div class="card-bottom">
+          <div class="card-watermark">
+            <p class="wm-name" id="card-wm-name">卡片工场 CARDLAB</p>
+            <p class="wm-link" id="card-link">cardlab</p>
+            <p class="wm-note" id="card-wm-note">估值纯属虚构 · 娱乐而已</p>
+          </div>
+          <div class="card-qr" id="card-qr"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -83,8 +97,8 @@
   <p class="save-hint" id="save-hint">长按图片，保存到相册</p>
 </div>
 
-<script src="html2canvas.min.js"></script>
-<script src="qrcode.min.js"></script>
-<script src="app.js"></script>
+<script src="assets/vendor/html2canvas.min.js"></script>
+<script src="assets/vendor/qrcode.min.js"></script>
+<script src="assets/app.js"></script>
 </body>
 </html>
