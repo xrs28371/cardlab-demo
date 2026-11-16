@@ -103,7 +103,7 @@ body{
 .card-handle{margin-top:64px;font-size:27px;color:var(--dim);font-weight:600;letter-spacing:.01em;word-break:break-all}
 .card-label{margin-top:14px;font-size:21px;color:var(--dim);letter-spacing:.34em}
 .card-value{
-  margin-top:6px;font-size:104px;line-height:1.04;font-weight:800;letter-spacing:-.01em;
+  margin-top:10px;font-size:128px;line-height:1.02;font-weight:800;letter-spacing:-.01em;
   font-variant-numeric:tabular-nums;white-space:nowrap;
 }
 .card-equiv{
@@ -120,3 +120,19 @@ body{
 .card-qr{background:#fff;padding:8px;border-radius:10px;line-height:0;flex:none}
 .card-qr img,.card-qr canvas{width:92px !important;height:92px !important}
 .cta-save{margin-top:20px}
+.quiet-link{
+  display:block;margin:14px auto 0;background:none;border:none;cursor:pointer;
+  color:var(--dim);font-size:14px;letter-spacing:.05em;padding:6px 10px;
+}
+
+/* ---------- 保存浮层 ---------- */
+.save-overlay{
+  position:fixed;inset:0;z-index:50;background:rgba(6,6,8,.94);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;
+}
+.save-overlay img{max-width:min(88vw,420px);max-height:76vh;border-radius:14px;box-shadow:0 18px 60px rgba(0,0,0,.6)}
+.save-hint{margin-top:18px;font-size:16px;font-weight:700;letter-spacing:.04em}
+.save-close{
+  position:absolute;top:14px;right:16px;width:40px;height:40px;border-radius:50%;
+  background:var(--panel);border:1px solid var(--panel-line);color:var(--ink);font-size:22px;cursor:pointer;line-height:1;
+}

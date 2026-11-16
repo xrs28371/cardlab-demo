@@ -24,9 +24,9 @@
 <main id="view-tool" class="view hidden">
   <button class="back" id="btn-back-home" aria-label="返回">‹</button>
   <header class="tool-head">
-    <p class="tool-no">工具 01 · 首发</p>
-    <h2 class="tool-title">X 价值计算器</h2>
-    <p class="tool-desc">输入一个用户名，3 秒算出它值多少杯奶茶。</p>
+    <p class="tool-no" id="tool-no">工具 01 · 首发</p>
+    <h2 class="tool-title" id="tool-title">X 价值计算器</h2>
+    <p class="tool-desc" id="tool-desc">输入一个用户名，3 秒算出它值多少杯奶茶。</p>
   </header>
   <form id="value-form" class="value-form" autocomplete="off">
     <div class="input-wrap">
@@ -34,10 +34,10 @@
       <input id="handle-input" type="text" placeholder="输入用户名" maxlength="30" inputmode="text">
     </div>
     <p class="form-error hidden" id="form-error">先填一个用户名，随便谁的都行</p>
-    <button type="submit" class="cta">开始估值</button>
+    <button type="submit" class="cta" id="tool-cta">开始估值</button>
   </form>
-  <p class="trust trust-center">不登录 · 不授权 · 不存你的用户名</p>
-  <p class="fineprint">估值公式纯属虚构，图一乐。</p>
+  <p class="trust trust-center" id="tool-trust">不登录 · 不授权 · 不存你的用户名</p>
+  <p class="fineprint" id="tool-fineprint">估值公式纯属虚构，图一乐。</p>
 </main>
 
 <!-- ===== 分析中遮罩 ===== -->
@@ -73,7 +73,15 @@
     </div>
   </div>
   <button class="cta cta-save" id="btn-save">保存图片</button>
+  <button class="quiet-link" id="btn-again">‹ 再测一个</button>
 </main>
+
+<!-- ===== 保存结果浮层：移动端长按保存 ===== -->
+<div id="save-overlay" class="save-overlay hidden">
+  <button class="save-close" id="btn-save-close" aria-label="关闭">×</button>
+  <img id="save-img" alt="估值卡片">
+  <p class="save-hint" id="save-hint">长按图片，保存到相册</p>
+</div>
 
 <script src="html2canvas.min.js"></script>
 <script src="qrcode.min.js"></script>

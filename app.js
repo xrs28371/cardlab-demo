@@ -28,10 +28,27 @@
         '<span class="tool-main"><span class="tool-name">' + t.name + '</span>' +
         '<span class="tool-desc" style="display:block">' + t.desc + '</span></span>' + tag;
       if (t.status === 'live') {
-        b.addEventListener('click', function () { show('tool'); $('handle-input').focus(); });
+        b.addEventListener('click', function () { openTool(t); });
+        applyToolHeader(t);
       }
       grid.appendChild(b);
     });
+  }
+
+  /* 工具页文案全部来自 tools.json，换工具只换配置 */
+  function applyToolHeader(t) {
+    $('tool-no').textContent = '工具 ' + t.no + ' · ' + t.batch;
+    $('tool-title').textContent = t.name;
+    $('tool-desc').textContent = t.desc + '。';
+    $('tool-cta').textContent = t.cta || '开始';
+    $('tool-trust').textContent = t.trustLine || '';
+    $('tool-fineprint').textContent = t.fineprint || '';
+    $('handle-input').placeholder = t.inputPlaceholder || '输入用户名';
+  }
+  function openTool(t) {
+    if (t && t.id) { try { history.replaceState(null, '', '#' + t.id); } catch (e) {} }
+    show('tool');
+    $('handle-input').focus();
   }
 
   /* ---------- 估值：纯前端虚构公式，同名恒定 ---------- */
@@ -57,7 +74,8 @@
 
   function evaluate(handle) {
     var rand = mulberry32(fnv1a(handle.toLowerCase()));
-    var value = Math.floor(cfg.base + Math.pow(rand(), cfg.skew) * cfg.spread);
+    /* 对数分布＋幂次整形：高/中/低三档大致各占三分之一 */
+    var value = Math.floor(cfg.min * Math.pow(cfg.max / cfg.min, Math.pow(rand(), cfg.exponent)));
     var tier = cfg.tiers[cfg.tiers.length - 1];
     for (var i = 0; i < cfg.tiers.length; i++) {
       if (value >= cfg.tiers[i].min) { tier = cfg.tiers[i]; break; }
@@ -82,18 +100,18 @@
   }
   function fitValue() {
     var el = $('card-value');
-    var size = 104;
+    var size = 128;
     el.style.fontSize = size + 'px';
-    while (el.scrollWidth > 444 && size > 40) { size -= 6; el.style.fontSize = size + 'px'; }
+    while (el.scrollWidth > 444 && size > 44) { size -= 6; el.style.fontSize = size + 'px'; }
   }
   function fillCard(handle, r) {
     $('card-handle').textContent = '@' + handle;
-    $('card-value').textContent = '¥' + commas(r.value);
-    $('card-equiv').textContent = '≈ ' + commas(r.equiv) + ' 杯奶茶';
+    $('card-value').textContent = cfg.currency + commas(r.value);
+    $('card-equiv').textContent = '≈ ' + commas(r.equiv) + ' ' + cfg.equivUnit;
     $('card-tier').textContent = r.tierLabel;
     $('card-copy').textContent = r.copy;
     var url = window.location.origin + window.location.pathname;
-    $('card-link').textContent = url.replace(/^https?:\/\//, '');
+    $('card-link').textContent = url.replace(/^https?:\/\//, '').replace(/\/$/, '');
     var qrBox = $('card-qr');
     qrBox.innerHTML = '';
     /* global QRCode */
@@ -128,30 +146,51 @@
     }, cfg.analysisMs);
   });
 
-  $('btn-back-home').addEventListener('click', function () { show('home'); });
+  $('btn-back-home').addEventListener('click', function () {
+    try { history.replaceState(null, '', window.location.pathname); } catch (e) {}
+    show('home');
+  });
+  $('btn-again').addEventListener('click', function () {
+    $('handle-input').value = '';
+    show('tool');
+    $('handle-input').focus();
+  });
+  $('btn-save-close').addEventListener('click', function () {
+    $('save-overlay').classList.add('hidden');
+  });
 
-  /* ---------- 保存图片：540×960 以 scale 2 渲染为 1080×1920 PNG ---------- */
+  /* ---------- 保存图片：离屏克隆渲染 1080×1920，页面不闪烁；移动端出浮层长按保存 ---------- */
   $('btn-save').addEventListener('click', function () {
-    var card = $('card');
     var btn = $('btn-save');
-    var prevTransform = card.style.transform;
     btn.textContent = '正在生成…';
-    card.style.transform = 'none';
+    var holder = document.createElement('div');
+    holder.style.cssText = 'position:fixed;left:-9999px;top:0;width:540px;height:960px;overflow:hidden';
+    var clone = $('card').cloneNode(true);
+    clone.removeAttribute('id');
+    clone.style.transform = 'none';
+    holder.appendChild(clone);
+    document.body.appendChild(holder);
     /* global html2canvas */
-    html2canvas(card, { scale: 2, backgroundColor: '#101014', logging: false }).then(function (canvas) {
-      card.style.transform = prevTransform;
+    html2canvas(clone, { scale: 2, backgroundColor: '#101014', logging: false }).then(function (canvas) {
+      holder.remove();
       btn.textContent = '保存图片';
       canvas.toBlob(function (blob) {
-        var a = document.createElement('a');
-        a.href = URL.createObjectURL(blob);
-        a.download = 'x-value-' + currentHandle + '.png';
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
-        setTimeout(function () { URL.revokeObjectURL(a.href); }, 4000);
+        var url = URL.createObjectURL(blob);
+        var isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+        if (!isIOS) {
+          var a = document.createElement('a');
+          a.href = url;
+          a.download = 'x-value-' + currentHandle + '.png';
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+        }
+        $('save-img').src = url;
+        $('save-hint').textContent = isIOS ? '长按图片，保存到相册' : '图片已生成 · 长按或右键也可保存';
+        $('save-overlay').classList.remove('hidden');
       }, 'image/png');
     }).catch(function () {
-      card.style.transform = prevTransform;
+      holder.remove();
       btn.textContent = '生成失败，再点一次';
     });
   });
@@ -167,7 +206,11 @@
   ]).then(function (res) {
     renderHome(res[0]);
     cfg = res[1];
-    show('home');
+    /* 深链：#x-value 直达工具页，打开即能输入 */
+    var hash = window.location.hash.replace('#', '').replace('/', '');
+    var live = null;
+    res[0].tools.forEach(function (t) { if (t.status === 'live') live = t; });
+    if (live && hash === live.id) { openTool(live); } else { show('home'); }
   }).catch(function () {
     document.body.innerHTML = '<p style="padding:40px 0;color:#9b978c">配置加载失败，请刷新重试。</p>';
   });
