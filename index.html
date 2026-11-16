@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>卡片工场 · X 价值计算器</title>
+<meta name="description" content="只生产值得截图发群的卡片。不登录，不授权，不存你的信息。">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ===== 视图一：工具矩阵首页（骨架层） ===== -->
+<main id="view-home" class="view">
+  <header class="hero">
+    <div class="brand"><span class="brand-mark">▣</span><span id="site-name">卡片工场</span><span class="brand-en" id="site-name-en">CARDLAB</span></div>
+    <h1 class="hero-title" id="site-slogan">只生产值得截图发群的卡片</h1>
+    <p class="trust" id="site-trust">不登录 · 不授权 · 不存你的信息</p>
+  </header>
+  <section id="tool-grid" class="tool-grid"><!-- 由 config/tools.json 渲染 --></section>
+  <footer class="home-foot">一个输入框 · 一个结果 · 一张卡片，够了。</footer>
+</main>
+
+<!-- ===== 视图二：工具① 输入 ===== -->
+<main id="view-tool" class="view hidden">
+  <button class="back" id="btn-back-home" aria-label="返回">‹</button>
+  <header class="tool-head">
+    <p class="tool-no">工具 01 · 首发</p>
+    <h2 class="tool-title">X 价值计算器</h2>
+    <p class="tool-desc">输入一个用户名，3 秒算出它值多少杯奶茶。</p>
+  </header>
+  <form id="value-form" class="value-form" autocomplete="off">
+    <div class="input-wrap">
+      <span class="at">@</span>
+      <input id="handle-input" type="text" placeholder="输入用户名" maxlength="30" inputmode="text">
+    </div>
+    <p class="form-error hidden" id="form-error">先填一个用户名，随便谁的都行</p>
+    <button type="submit" class="cta">开始估值</button>
+  </form>
+  <p class="trust trust-center">不登录 · 不授权 · 不存你的用户名</p>
+  <p class="fineprint">估值公式纯属虚构，图一乐。</p>
+</main>
+
+<!-- ===== 分析中遮罩 ===== -->
+<div id="analysis" class="analysis hidden">
+  <div class="analysis-box">
+    <div class="spinner"></div>
+    <p id="analysis-text">正在读取你的影响力…</p>
+  </div>
+</div>
+
+<!-- ===== 视图三：结果卡片 ===== -->
+<main id="view-card" class="view hidden">
+  <div class="card-scale-wrap">
+    <div id="card" class="card">
+      <div class="card-top">
+        <span class="card-tool">X 价值计算器</span>
+        <span class="card-brand">▣ 卡片工场</span>
+      </div>
+      <p class="card-handle" id="card-handle">@username</p>
+      <p class="card-label">估值身价</p>
+      <p class="card-value" id="card-value">¥0</p>
+      <p class="card-equiv" id="card-equiv">≈ 0 杯奶茶</p>
+      <p class="card-tier" id="card-tier">深藏不露潜力股</p>
+      <p class="card-copy" id="card-copy">数字不大，气势不能输。</p>
+      <div class="card-bottom">
+        <div class="card-watermark">
+          <p class="wm-name">卡片工场 CARDLAB</p>
+          <p class="wm-link" id="card-link">cardlab</p>
+          <p class="wm-note">估值纯属虚构 · 娱乐而已</p>
+        </div>
+        <div class="card-qr" id="card-qr"></div>
+      </div>
+    </div>
+  </div>
+  <button class="cta cta-save" id="btn-save">保存图片</button>
+</main>
+
+<script src="html2canvas.min.js"></script>
+<script src="qrcode.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
