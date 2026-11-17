@@ -9,6 +9,17 @@ html,body{background:var(--bg)}
 body{font-family:-apple-system,"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;color:var(--txt);min-height:100vh;position:relative;overflow-x:hidden}
 .hidden{display:none!important}
 
+/* 语言切换（v3 新增，固定右上角，全站可见） */
+.lang-toggle{position:fixed;top:14px;right:16px;z-index:30;background:rgba(255,255,255,.06);border:1px solid var(--line);color:var(--txt);font-size:13px;font-weight:700;letter-spacing:1px;padding:8px 15px;border-radius:99px;cursor:pointer;backdrop-filter:blur(8px);font-family:inherit}
+.lang-toggle:active{transform:scale(.96)}
+
+/* 被动收入说明区（v3 新增，首页工具矩阵下方） */
+.income{margin-top:26px;border:1px solid rgba(167,139,250,.35);background:linear-gradient(135deg,rgba(124,92,255,.14),rgba(34,211,238,.06));border-radius:18px;padding:22px 20px;backdrop-filter:blur(8px)}
+.income-title{font-size:18px;font-weight:800;letter-spacing:.5px}
+.income-text{margin-top:9px;font-size:14px;line-height:1.65;color:var(--dim)}
+.income-btn{display:inline-block;margin-top:15px;font-size:14px;font-weight:700;color:#06121a;background:linear-gradient(92deg,#a5f3fc,#c4b5fd);padding:11px 18px;border-radius:12px;text-decoration:none}
+.income-btn:active{transform:scale(.98)}
+
 /* 背景层：网格 + 两团极光 */
 .bg{position:fixed;inset:0;z-index:0;pointer-events:none}
 .bg-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:44px 44px;mask-image:radial-gradient(ellipse 90% 60% at 50% 0%,#000 30%,transparent 75%);-webkit-mask-image:radial-gradient(ellipse 90% 60% at 50% 0%,#000 30%,transparent 75%)}

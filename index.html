@@ -10,6 +10,7 @@
 </head>
 <body>
 <div class="bg" aria-hidden="true"><div class="bg-grid"></div><div class="bg-glow g1"></div><div class="bg-glow g2"></div></div>
+<button id="lang-toggle" class="lang-toggle" type="button" aria-label="Switch language">EN</button>
 
 <!-- ===== 视图一：工具矩阵首页（骨架层，全部由 config/tools.json 渲染） ===== -->
 <main id="view-home" class="view">
@@ -23,7 +24,12 @@
     <p class="trust"><span class="trust-dot"></span><span id="site-trust">不登录 · 不授权 · 不存你的信息</span></p>
   </header>
   <section id="tool-grid" class="tool-grid"></section>
-  <footer class="home-foot">一个输入框 · 一个结果 · 一张卡片，够了。</footer>
+  <section class="income" id="income-block">
+    <h3 class="income-title" id="income-title">玩归玩，流量也能变成被动收入</h3>
+    <p class="income-text" id="income-text">这个站是 earnway.art 中央数据库旗下的娱乐小站，不注册、不登录、不存你的任何信息，放心玩。如果想把这类流量带来的被动收入做起来，可以去总中央数据库的 CRM 系统看看，完整的玩法和路径都写在那边。</p>
+    <a class="income-btn" id="income-btn" href="https://earnway.art/blog/generating-ad-revenue-google-trending-keywords-earnway-art" target="_blank" rel="noopener">去看看被动收入怎么做 →</a>
+  </section>
+  <footer class="home-foot" id="home-foot">一个输入框 · 一个结果 · 一张卡片，够了。</footer>
 </main>
 
 <!-- ===== 视图二：工具页（通用壳，文案由配置注入；工具引擎按 id 注册） ===== -->
@@ -32,7 +38,7 @@
   <header class="tool-head">
     <p class="tool-no" id="tool-no">工具 01 · 首发</p>
     <h2 class="tool-title" id="tool-title">X 价值计算器</h2>
-    <p class="tool-desc" id="tool-desc">输入一个用户名，3 秒算出它值多少杯奶茶。</p>
+    <p class="tool-desc" id="tool-desc">输入一个用户名，3 秒算出它值多少杯咖啡。</p>
   </header>
   <form id="value-form" class="value-form" autocomplete="off">
     <div class="input-wrap">
@@ -69,8 +75,8 @@
         <div class="card-stage">
           <div class="value-glow"></div>
           <p class="card-label" id="card-label">估值身价</p>
-          <p class="card-value" id="card-value">¥0</p>
-          <p class="card-equiv"><span id="card-equiv">≈ 0 杯奶茶</span></p>
+          <p class="card-value" id="card-value">$0</p>
+          <p class="card-equiv"><span id="card-equiv">≈ 0 杯咖啡</span></p>
         </div>
         <p class="card-tier"><span id="card-tier">深藏不露潜力股</span></p>
         <div class="card-copy-wrap"><p class="card-copy" id="card-copy">数字不大，气势不能输。</p></div>
