@@ -1,6 +1,6 @@
 /* =====================================================================
    CardLab 前端骨架 v3（雇主反馈修订版：中英双语整套配置切换、
-   奶茶改咖啡、金额全站美元、首页新增被动收入说明区＋CRM 链接）
+   饮品口径改咖啡、金额全站美元、首页新增被动收入说明区＋CRM 链接）
    架构分层（每层只管一件事，层与层之间只通过配置与数据对象通信）：
      1. Config   配置层：站点/工具矩阵来自 config/tools.json；每个工具的
                  玩法配置路径写在该工具自己的 "pack" 字段里，启动时按表
@@ -38,11 +38,16 @@
   var lang = 'zh';
   try { lang = localStorage.getItem('cardlab-lang') || 'zh'; } catch (e) {}
   if (!LANG_FILES[lang]) lang = 'zh';
+  /* URL 带 ?lang=en / ?lang=zh 时以 URL 为准（方便分享指定语言的链接） */
+  try {
+    var qLang = new URLSearchParams(window.location.search).get('lang');
+    if (qLang && LANG_FILES[qLang]) lang = qLang;
+  } catch (e) {}
   var FALLBACK_I18N = {
-    income: { url: 'https://earnway.art/blog/generating-ad-revenue-google-trending-keywords-earnway-art' },
+    income: { url: 'https://earnway.art', blogUrl: 'https://earnway.art/blog/generating-ad-revenue-google-trending-keywords-earnway-art' },
     ui: {
-      zh: { pageTitle: '卡片工场 · X 价值计算器', homeFoot: '一个输入框 · 一个结果 · 一张卡片，够了。', liveTag: '立即测', toolNoTpl: '工具 {no} · {batch}', defaultCta: '开始', formErrorEmpty: '先填一个用户名，随便谁的都行', formErrorNoPack: '这个工具还在准备中，过几天再来', saveBtn: '保存图片', saveGenerating: '正在生成…', saveFailed: '生成失败，再点一次', againBtn: '‹ 再测一个', saveHintMobile: '长按图片，保存到相册', saveHintDesktop: '已下载 · 也可以长按或右键保存这张图', toggleLabel: 'EN', incomeTitle: '玩归玩，流量也能变成被动收入', incomeText: '这个站是 earnway.art 中央数据库旗下的娱乐小站，不注册、不登录、不存你的任何信息，放心玩。如果想把这类流量带来的被动收入做起来，可以去总中央数据库的 CRM 系统看看，完整的玩法和路径都写在那边。', incomeBtn: '去看看被动收入怎么做 →' },
-      en: { pageTitle: 'CardLab · X Value Calculator', homeFoot: "One input · One result · One card. That's it.", liveTag: 'Try it', toolNoTpl: 'Tool {no} · {batch}', defaultCta: 'Start', formErrorEmpty: "Enter a username first — anyone's will do", formErrorNoPack: 'This tool is still in the works. Check back soon.', saveBtn: 'Save image', saveGenerating: 'Generating…', saveFailed: 'Failed — tap to retry', againBtn: '‹ Test another', saveHintMobile: 'Long-press the image to save it', saveHintDesktop: 'Downloaded · you can also long-press or right-click to save', toggleLabel: '中文', incomeTitle: 'Fun is fun — traffic can turn into passive income', incomeText: "This is a lightweight entertainment site under the earnway.art central database. No sign-up, no login, and nothing about you is ever stored — just play. If you'd like to turn traffic like this into passive income, the central database's CRM system is where that happens, and the full walkthrough is over there.", incomeBtn: 'See how passive income works →' }
+      zh: { pageTitle: '卡片工场 · X 价值计算器', homeFoot: '一个输入框 · 一个结果 · 一张卡片，够了。', liveTag: '立即测', toolNoTpl: '工具 {no} · {batch}', defaultCta: '开始', formErrorEmpty: '先填一个用户名，随便谁的都行', formErrorNoPack: '这个工具还在准备中，过几天再来', saveBtn: '保存图片', saveGenerating: '正在生成…', saveFailed: '生成失败，再点一次', againBtn: '‹ 再测一个', saveHintMobile: '长按图片，保存到相册', saveHintDesktop: '已下载 · 也可以长按或右键保存这张图', toggleLabel: 'EN', backLabel: '返回', cardAlt: '估值卡片', incomeTitle: '想赚奖励积分和被动收入？', incomeText: '本站的基础功能——做卡、估值、分享——都不用注册，打开就能玩。如果想赚 EW/ART 奖励积分，或者通过 earnway.art 的每日任务获得被动收入，需要先在平台注册；提现时要完成 KYC 身份验证。这个集成只是一个可选的增值项，不会干扰核心体验。', incomeBtn: '前往 earnway.art →', incomeBlog: '核心业务说明：靠趋势关键词赚广告收入' },
+      en: { pageTitle: 'CardLab · X Value Calculator', homeFoot: "One input · One result · One card. That's it.", liveTag: 'Try it', toolNoTpl: 'Tool {no} · {batch}', defaultCta: 'Start', formErrorEmpty: "Enter a username first — anyone's will do", formErrorNoPack: 'This tool is still in the works. Check back soon.', saveBtn: 'Save image', saveGenerating: 'Generating…', saveFailed: 'Failed — tap to retry', againBtn: '‹ Test another', saveHintMobile: 'Long-press the image to save it', saveHintDesktop: 'Downloaded · you can also long-press or right-click to save', toggleLabel: '中文', backLabel: 'Back', cardAlt: 'Valuation card', incomeTitle: 'Want reward points and passive income?', incomeText: 'The basics here — creating, valuing, and sharing cards — are available without registration. If you wish to earn "EW/ART" reward points, or generate passive income through daily tasks on earnway.art, you must register on the platform; identity verification (KYC) is required for withdrawals. This integration is an optional value-add and does not interfere with the core experience.', incomeBtn: 'Go to earnway.art →', incomeBlog: 'Core business: generating ad revenue with trending keywords' }
     }
   };
   var Config = {
@@ -72,13 +77,15 @@
   function ui() {
     return (Config.i18n && Config.i18n.ui && Config.i18n.ui[lang]) || FALLBACK_I18N.ui[lang] || {};
   }
+  /* 兜底文案也按当前语言取，避免英文模式露出中文 */
+  function fb(zh, en) { return lang === 'en' ? en : zh; }
   /* 界面杂项文案（标题/页脚/按钮/被动收入区）统一从 i18n 配置刷一遍 */
   function applyChrome() {
     var u = ui();
     document.documentElement.lang = lang === 'en' ? 'en' : 'zh-CN';
     if (u.pageTitle) document.title = u.pageTitle;
     $('home-foot').textContent = u.homeFoot || '';
-    $('btn-save').textContent = u.saveBtn || '保存图片';
+    $('btn-save').textContent = u.saveBtn || fb('保存图片', 'Save image');
     $('btn-again').textContent = u.againBtn || '';
     $('lang-toggle').textContent = u.toggleLabel || 'EN';
     var inc = (Config.i18n && Config.i18n.income) || FALLBACK_I18N.income;
@@ -87,6 +94,11 @@
     var btn = $('income-btn');
     btn.textContent = u.incomeBtn || '';
     if (inc && inc.url) btn.href = inc.url;
+    $('btn-back-home').setAttribute('aria-label', u.backLabel || fb('返回', 'Back'));
+    $('save-img').alt = u.cardAlt || fb('估值卡片', 'Valuation card');
+    var blog = $('income-blog');
+    blog.textContent = u.incomeBlog || '';
+    if (inc && inc.blogUrl) blog.href = inc.blogUrl;
   }
 
   /* ================= 2. Router 路由层 ================= */
@@ -123,7 +135,7 @@
         '<span class="tool-no-badge">' + t.no + '</span>' +
         '<span class="tool-main"><span class="tool-name">' + t.name + '</span>' +
         '<span class="tool-desc">' + t.desc + '</span></span>' +
-        (t.status === 'live' ? '<span class="tool-tag live">' + (ui().liveTag || '立即测') + '</span>'
+        (t.status === 'live' ? '<span class="tool-tag live">' + (ui().liveTag || fb('立即测', 'Try it')) + '</span>'
                              : '<span class="tool-tag">' + t.batch + '</span>');
       if (t.status === 'live') {
         b.addEventListener('click', function () { openTool(t); });
@@ -134,10 +146,10 @@
   function openTool(t) {
     currentTool = t;
     Router.setHash('#' + t.id);
-    $('tool-no').textContent = (ui().toolNoTpl || '工具 {no} · {batch}').replace('{no}', t.no).replace('{batch}', t.batch);
+    $('tool-no').textContent = (ui().toolNoTpl || fb('工具 {no} · {batch}', 'Tool {no} · {batch}')).replace('{no}', t.no).replace('{batch}', t.batch);
     $('tool-title').textContent = t.name;
     $('tool-desc').textContent = t.desc + (lang === 'en' ? '' : '。');
-    $('tool-cta').textContent = t.cta || ui().defaultCta || '开始';
+    $('tool-cta').textContent = t.cta || ui().defaultCta || fb('开始', 'Start');
     $('tool-trust').textContent = t.trustLine || '';
     $('tool-fineprint').textContent = t.fineprint || '';
     $('handle-input').placeholder = t.inputPlaceholder || '输入用户名';
@@ -279,13 +291,13 @@
     var pack = Config.packs[currentTool.id];
     var engine = Engines[currentTool.id];
     if (!pack || !engine) {
-      $('form-error').textContent = ui().formErrorNoPack || '这个工具还在准备中，过几天再来';
+      $('form-error').textContent = ui().formErrorNoPack || fb('这个工具还在准备中，过几天再来', 'This tool is still in the works. Check back soon.');
       $('form-error').classList.remove('hidden');
       return;
     }
     var r = engine($('handle-input').value, pack);
     if (!r) {
-      $('form-error').textContent = ui().formErrorEmpty || '先填一个用户名，随便谁的都行';
+      $('form-error').textContent = ui().formErrorEmpty || fb('先填一个用户名，随便谁的都行', "Enter a username first — anyone's will do");
       $('form-error').classList.remove('hidden');
       return;
     }
@@ -315,7 +327,7 @@
   }
   $('btn-save').addEventListener('click', function () {
     var btn = $('btn-save');
-    btn.textContent = ui().saveGenerating || '正在生成…';
+    btn.textContent = ui().saveGenerating || fb('正在生成…', 'Generating…');
     var holder = document.createElement('div');
     holder.style.cssText = 'position:fixed;left:-9999px;top:0;width:540px;height:960px;overflow:hidden';
     var clone = $('card').cloneNode(true);
@@ -339,9 +351,9 @@
     /* global html2canvas */
     html2canvas(clone, { scale: 2, backgroundColor: '#0a0a12', logging: false }).then(function (canvas) {
       holder.remove();
-      btn.textContent = ui().saveBtn || '保存图片';
+      btn.textContent = ui().saveBtn || fb('保存图片', 'Save image');
       canvas.toBlob(function (blob) {
-        if (!blob) { btn.textContent = ui().saveFailed || '生成失败，再点一次'; return; }
+        if (!blob) { btn.textContent = ui().saveFailed || fb('生成失败，再点一次', 'Failed — tap to retry'); return; }
         var url = URL.createObjectURL(blob);
         if (!isMobile()) {
           var a = document.createElement('a');
@@ -350,10 +362,10 @@
           document.body.appendChild(a);
           a.click();
           a.remove();
-          $('save-hint').textContent = ui().saveHintDesktop || '已下载 · 也可以长按或右键保存这张图';
+          $('save-hint').textContent = ui().saveHintDesktop || fb('已下载 · 也可以长按或右键保存这张图', 'Downloaded · you can also long-press or right-click to save');
         } else {
           /* 移动端（含安卓 WebView）一律浮层长按保存，不走假下载 */
-          $('save-hint').textContent = ui().saveHintMobile || '长按图片，保存到相册';
+          $('save-hint').textContent = ui().saveHintMobile || fb('长按图片，保存到相册', 'Long-press the image to save it');
         }
         $('save-img').src = url;
         $('save-overlay').classList.remove('hidden');
@@ -361,7 +373,7 @@
       }, 'image/png');
     }).catch(function () {
       holder.remove();
-      btn.textContent = ui().saveFailed || '生成失败，再点一次';
+      btn.textContent = ui().saveFailed || fb('生成失败，再点一次', 'Failed — tap to retry');
     });
   });
 
