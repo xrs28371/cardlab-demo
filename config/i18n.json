@@ -1,7 +1,9 @@
 {
  "income": {
   "url": "https://earnway.art",
-  "blogUrl": "https://earnway.art/blog/generating-ad-revenue-google-trending-keywords-earnway-art"
+  "blogUrl": "https://earnway.art/blog/generating-ad-revenue-google-trending-keywords-earnway-art",
+  "refParam": "ref",
+  "commissionNote": ""
  },
  "ui": {
   "en": {
@@ -24,7 +26,12 @@
    "toolNoTpl": "Tool {no} · {batch}",
    "incomeBlog": "Core business: generating ad revenue with trending keywords",
    "backLabel": "Back",
-   "cardAlt": "Valuation card"
+   "cardAlt": "Valuation card",
+   "refLabel": "Referrer",
+   "refYes": "I have a referrer",
+   "refNo": "No referrer",
+   "refPlaceholder": "Referral code or referrer's link",
+   "refNote": "Register through a referrer's link, and your referrer earns a commission."
   },
   "zh": {
    "againBtn": "‹ 再测一个",
@@ -46,7 +53,12 @@
    "toolNoTpl": "工具 {no} · {batch}",
    "incomeBlog": "核心业务说明：靠趋势关键词赚广告收入",
    "backLabel": "返回",
-   "cardAlt": "估值卡片"
+   "cardAlt": "估值卡片",
+   "refLabel": "推荐人",
+   "refYes": "有推荐人",
+   "refNo": "没有推荐人",
+   "refPlaceholder": "输入推荐码，或粘贴推荐人链接",
+   "refNote": "通过推荐人链接注册，推荐人可获得佣金。"
   }
  }
 }

@@ -1,5 +1,6 @@
 /* =====================================================================
-   CardLab 前端骨架 v3（雇主反馈修订版：中英双语整套配置切换、
+   CardLab 前端骨架 v4（雇主二轮反馈：英文改默认＋收入块推荐人机制）
+   v3（雇主反馈修订版：中英双语整套配置切换、
    饮品口径改咖啡、金额全站美元、首页新增被动收入说明区＋CRM 链接）
    架构分层（每层只管一件事，层与层之间只通过配置与数据对象通信）：
      1. Config   配置层：站点/工具矩阵来自 config/tools.json；每个工具的
@@ -30,24 +31,24 @@
   function fetchJson(url) {
     return fetch(url).then(function (r) { if (!r.ok) throw new Error(url); return r.json(); });
   }
-  /* 多语言（v3 新增）：默认中文。整套文案按语言成套放在配置里——
+  /* 多语言（v3 新增，v4 改默认）：默认英文。整套文案按语言成套放在配置里——
      站点/工具：config/tools.json（中） / config/tools.en.json（英），
      玩法包路径写在各自 tools 文件的 pack 字段；界面杂项文案与
-     被动收入区链接在 config/i18n.json。切换语言 = 整套重载 + 重渲染。 */
+     被动收入区链接在 config/i18n.json。切换语言 = 整套重载 + 重渲染。
+     v4 起不再读 localStorage 旧值：雇主在 v3 存过的中文偏好不能把
+     默认英文顶掉；切换状态只在页面内保持（变量 lang + 整套重渲染）。 */
   var LANG_FILES = { zh: 'config/tools.json', en: 'config/tools.en.json' };
-  var lang = 'zh';
-  try { lang = localStorage.getItem('cardlab-lang') || 'zh'; } catch (e) {}
-  if (!LANG_FILES[lang]) lang = 'zh';
-  /* URL 带 ?lang=en / ?lang=zh 时以 URL 为准（方便分享指定语言的链接） */
+  var lang = 'en';
+  /* URL 带 ?lang=zh / ?lang=en 时以 URL 为准（方便分享指定语言的链接） */
   try {
     var qLang = new URLSearchParams(window.location.search).get('lang');
     if (qLang && LANG_FILES[qLang]) lang = qLang;
   } catch (e) {}
   var FALLBACK_I18N = {
-    income: { url: 'https://earnway.art', blogUrl: 'https://earnway.art/blog/generating-ad-revenue-google-trending-keywords-earnway-art' },
+    income: { url: 'https://earnway.art', blogUrl: 'https://earnway.art/blog/generating-ad-revenue-google-trending-keywords-earnway-art', refParam: 'ref', commissionNote: '' },
     ui: {
-      zh: { pageTitle: '卡片工场 · X 价值计算器', homeFoot: '一个输入框 · 一个结果 · 一张卡片，够了。', liveTag: '立即测', toolNoTpl: '工具 {no} · {batch}', defaultCta: '开始', formErrorEmpty: '先填一个用户名，随便谁的都行', formErrorNoPack: '这个工具还在准备中，过几天再来', saveBtn: '保存图片', saveGenerating: '正在生成…', saveFailed: '生成失败，再点一次', againBtn: '‹ 再测一个', saveHintMobile: '长按图片，保存到相册', saveHintDesktop: '已下载 · 也可以长按或右键保存这张图', toggleLabel: 'EN', backLabel: '返回', cardAlt: '估值卡片', incomeTitle: '想赚奖励积分和被动收入？', incomeText: '本站的基础功能——做卡、估值、分享——都不用注册，打开就能玩。如果想赚 EW/ART 奖励积分，或者通过 earnway.art 的每日任务获得被动收入，需要先在平台注册；提现时要完成 KYC 身份验证。这个集成只是一个可选的增值项，不会干扰核心体验。', incomeBtn: '前往 earnway.art →', incomeBlog: '核心业务说明：靠趋势关键词赚广告收入' },
-      en: { pageTitle: 'CardLab · X Value Calculator', homeFoot: "One input · One result · One card. That's it.", liveTag: 'Try it', toolNoTpl: 'Tool {no} · {batch}', defaultCta: 'Start', formErrorEmpty: "Enter a username first — anyone's will do", formErrorNoPack: 'This tool is still in the works. Check back soon.', saveBtn: 'Save image', saveGenerating: 'Generating…', saveFailed: 'Failed — tap to retry', againBtn: '‹ Test another', saveHintMobile: 'Long-press the image to save it', saveHintDesktop: 'Downloaded · you can also long-press or right-click to save', toggleLabel: '中文', backLabel: 'Back', cardAlt: 'Valuation card', incomeTitle: 'Want reward points and passive income?', incomeText: 'The basics here — creating, valuing, and sharing cards — are available without registration. If you wish to earn "EW/ART" reward points, or generate passive income through daily tasks on earnway.art, you must register on the platform; identity verification (KYC) is required for withdrawals. This integration is an optional value-add and does not interfere with the core experience.', incomeBtn: 'Go to earnway.art →', incomeBlog: 'Core business: generating ad revenue with trending keywords' }
+      zh: { pageTitle: '卡片工场 · X 价值计算器', homeFoot: '一个输入框 · 一个结果 · 一张卡片，够了。', liveTag: '立即测', toolNoTpl: '工具 {no} · {batch}', defaultCta: '开始', formErrorEmpty: '先填一个用户名，随便谁的都行', formErrorNoPack: '这个工具还在准备中，过几天再来', saveBtn: '保存图片', saveGenerating: '正在生成…', saveFailed: '生成失败，再点一次', againBtn: '‹ 再测一个', saveHintMobile: '长按图片，保存到相册', saveHintDesktop: '已下载 · 也可以长按或右键保存这张图', toggleLabel: 'EN', backLabel: '返回', cardAlt: '估值卡片', incomeTitle: '想赚奖励积分和被动收入？', incomeText: '本站的基础功能——做卡、估值、分享——都不用注册，打开就能玩。如果想赚 EW/ART 奖励积分，或者通过 earnway.art 的每日任务获得被动收入，需要先在平台注册；提现时要完成 KYC 身份验证。这个集成只是一个可选的增值项，不会干扰核心体验。', incomeBtn: '前往 earnway.art →', incomeBlog: '核心业务说明：靠趋势关键词赚广告收入', refLabel: '推荐人', refYes: '有推荐人', refNo: '没有推荐人', refPlaceholder: '输入推荐码，或粘贴推荐人链接', refNote: '通过推荐人链接注册，推荐人可获得佣金。' },
+      en: { pageTitle: 'CardLab · X Value Calculator', homeFoot: "One input · One result · One card. That's it.", liveTag: 'Try it', toolNoTpl: 'Tool {no} · {batch}', defaultCta: 'Start', formErrorEmpty: "Enter a username first — anyone's will do", formErrorNoPack: 'This tool is still in the works. Check back soon.', saveBtn: 'Save image', saveGenerating: 'Generating…', saveFailed: 'Failed — tap to retry', againBtn: '‹ Test another', saveHintMobile: 'Long-press the image to save it', saveHintDesktop: 'Downloaded · you can also long-press or right-click to save', toggleLabel: '中文', backLabel: 'Back', cardAlt: 'Valuation card', incomeTitle: 'Want reward points and passive income?', incomeText: 'The basics here — creating, valuing, and sharing cards — are available without registration. If you wish to earn "EW/ART" reward points, or generate passive income through daily tasks on earnway.art, you must register on the platform; identity verification (KYC) is required for withdrawals. This integration is an optional value-add and does not interfere with the core experience.', incomeBtn: 'Go to earnway.art →', incomeBlog: 'Core business: generating ad revenue with trending keywords', refLabel: 'Referrer', refYes: 'I have a referrer', refNo: 'No referrer', refPlaceholder: "Referral code or referrer's link", refNote: "Register through a referrer's link, and your referrer earns a commission." }
     }
   };
   var Config = {
@@ -93,12 +94,67 @@
     $('income-text').textContent = u.incomeText || '';
     var btn = $('income-btn');
     btn.textContent = u.incomeBtn || '';
-    if (inc && inc.url) btn.href = inc.url;
+    applyReferral();
     $('btn-back-home').setAttribute('aria-label', u.backLabel || fb('返回', 'Back'));
     $('save-img').alt = u.cardAlt || fb('估值卡片', 'Valuation card');
     var blog = $('income-blog');
     blog.textContent = u.incomeBlog || '';
     if (inc && inc.blogUrl) blog.href = inc.blogUrl;
+  }
+
+  /* ================= 推荐人机制（v4 新增） =================
+     收入块内「有推荐人 / 没有推荐人」二选一（状态只存页面变量，
+     语言切换整套重渲染后由 applyChrome 重新刷回，不丢）：
+       · 没有推荐人 → 主按钮走 income.url 普通链接；
+       · 有推荐人 → 展开输入框，用户填推荐码或粘贴整条推荐链接
+         （粘链接时自动抽出参数值），主按钮链接拼成
+         income.url + '?' + income.refParam + '=' + 编码后的推荐码，
+         参数名只改 i18n.json 的 income.refParam 一处即可换格式。
+     佣金说明句来自 ui.refNote；具体比例口径雇主未定，先由
+     income.commissionNote 配置留空位，填了才显示第二行。 */
+  var referral = { has: false, code: '' };
+  function extractRefCode(raw, param) {
+    var v = String(raw || '').trim();
+    if (!v) return '';
+    if (/^https?:\/\//i.test(v)) {
+      try {
+        var fromUrl = new URL(v).searchParams.get(param);
+        if (fromUrl) return fromUrl;
+      } catch (e) {}
+      var m = v.match(new RegExp('[?&]' + param + '=([^&#]+)'));
+      if (m) { try { return decodeURIComponent(m[1]); } catch (e2) { return m[1]; } }
+      return ''; /* 粘了链接但里面没有推荐参数：不把整条链接当推荐码拼 */
+    }
+    return v.replace(/\s+/g, '');
+  }
+  function incomeUrl() {
+    var inc = (Config.i18n && Config.i18n.income) || FALLBACK_I18N.income;
+    var base = (inc && inc.url) || 'https://earnway.art';
+    if (!referral.has) return base;
+    var param = (inc && inc.refParam) || 'ref';
+    var code = extractRefCode(referral.code, param);
+    if (!code) return base;
+    return base + (base.indexOf('?') === -1 ? '?' : '&') + param + '=' + encodeURIComponent(code);
+  }
+  function applyReferral() {
+    var u = ui();
+    var inc = (Config.i18n && Config.i18n.income) || FALLBACK_I18N.income;
+    $('ref-label').textContent = u.refLabel || fb('推荐人', 'Referrer');
+    $('ref-yes').textContent = u.refYes || fb('有推荐人', 'I have a referrer');
+    $('ref-no').textContent = u.refNo || fb('没有推荐人', 'No referrer');
+    $('ref-yes').classList.toggle('active', referral.has);
+    $('ref-no').classList.toggle('active', !referral.has);
+    $('ref-yes').setAttribute('aria-pressed', referral.has ? 'true' : 'false');
+    $('ref-no').setAttribute('aria-pressed', referral.has ? 'false' : 'true');
+    $('ref-fields').classList.toggle('hidden', !referral.has);
+    var input = $('ref-input');
+    input.placeholder = u.refPlaceholder || '';
+    if (input.value !== referral.code) input.value = referral.code;
+    $('ref-note').textContent = u.refNote || '';
+    var note = (inc && inc.commissionNote) || '';
+    $('ref-commission').textContent = note;
+    $('ref-commission').classList.toggle('hidden', !note);
+    $('income-btn').href = incomeUrl();
   }
 
   /* ================= 2. Router 路由层 ================= */
@@ -377,10 +433,24 @@
     });
   });
 
+  /* ================= 推荐人选择：点选即切换，输入即同步主按钮链接 ================= */
+  $('ref-yes').addEventListener('click', function () {
+    referral.has = true;
+    applyReferral();
+    $('ref-input').focus();
+  });
+  $('ref-no').addEventListener('click', function () {
+    referral.has = false;
+    applyReferral();
+  });
+  $('ref-input').addEventListener('input', function () {
+    referral.code = $('ref-input').value;
+    $('income-btn').href = incomeUrl();
+  });
+
   /* ================= 语言切换：整套配置重载，当前视图原地重渲染 ================= */
   $('lang-toggle').addEventListener('click', function () {
     lang = lang === 'zh' ? 'en' : 'zh';
-    try { localStorage.setItem('cardlab-lang', lang); } catch (e) {}
     var onCard = Router.views && !Router.views.card.classList.contains('hidden');
     var onTool = Router.views && !Router.views.tool.classList.contains('hidden');
     Config.load().then(function () {
