@@ -47,8 +47,8 @@
   var FALLBACK_I18N = {
     income: { url: 'https://earnway.art', blogUrl: 'https://earnway.art/blog/generating-ad-revenue-google-trending-keywords-earnway-art', refBase: 'https://earnway.art', refPath: '/register.php?ref=', commissionNote: '' },
     ui: {
-      zh: { pageTitle: '卡片工场 · X 价值计算器', homeFoot: '一个输入框 · 一个结果 · 一张卡片，够了。', liveTag: '立即测', toolNoTpl: '工具 {no} · {batch}', defaultCta: '开始', formErrorEmpty: '先填一个用户名，随便谁的都行', formErrorNoPack: '这个工具还在准备中，过几天再来', saveBtn: '保存图片', saveGenerating: '正在生成…', saveFailed: '生成失败，再点一次', againBtn: '‹ 再测一个', saveHintMobile: '长按图片，保存到相册', saveHintDesktop: '已下载 · 也可以长按或右键保存这张图', toggleLabel: 'EN', backLabel: '返回', cardAlt: '估值卡片', incomeTitle: '想赚奖励积分和被动收入？', incomeText: '本站的基础功能——做卡、估值、分享——都不用注册，打开就能玩。如果想赚 EW/ART 奖励积分，或者通过 earnway.art 的每日任务获得被动收入，需要先在平台注册；提现时要完成 KYC 身份验证。这个集成只是一个可选的增值项，不会干扰核心体验。', incomeBtn: '前往 earnway.art →', incomeBlog: '核心业务说明：靠趋势关键词赚广告收入', refLabel: '推荐人', refYes: '有推荐人', refNo: '没有推荐人', refPlaceholder: '输入推荐码，或粘贴推荐人链接', refNote: '分享这条链接。有人通过它注册并充值 EW，你就能自动获得佣金。' },
-      en: { pageTitle: 'CardLab · X Value Calculator', homeFoot: "One input · One result · One card. That's it.", liveTag: 'Try it', toolNoTpl: 'Tool {no} · {batch}', defaultCta: 'Start', formErrorEmpty: "Enter a username first — anyone's will do", formErrorNoPack: 'This tool is still in the works. Check back soon.', saveBtn: 'Save image', saveGenerating: 'Generating…', saveFailed: 'Failed — tap to retry', againBtn: '‹ Test another', saveHintMobile: 'Long-press the image to save it', saveHintDesktop: 'Downloaded · you can also long-press or right-click to save', toggleLabel: '中文', backLabel: 'Back', cardAlt: 'Valuation card', incomeTitle: 'Want reward points and passive income?', incomeText: 'The basics here — creating, valuing, and sharing cards — are available without registration. If you wish to earn "EW/ART" reward points, or generate passive income through daily tasks on earnway.art, you must register on the platform; identity verification (KYC) is required for withdrawals. This integration is an optional value-add and does not interfere with the core experience.', incomeBtn: 'Go to earnway.art →', incomeBlog: 'Core business: generating ad revenue with trending keywords', refLabel: 'Referrer', refYes: 'I have a referrer', refNo: 'No referrer', refPlaceholder: "Referral code or referrer's link", refNote: 'Share this link. When someone registers and tops up EW, you earn automatically.' }
+      zh: { pageTitle: '卡片工场 · X 价值计算器', homeFoot: '一个输入框 · 一个结果 · 一张卡片，够了。', liveTag: '立即测', toolNoTpl: '工具 {no} · {batch}', defaultCta: '开始', formErrorEmpty: '先填一个用户名，随便谁的都行', formErrorNoPack: '这个工具还在准备中，过几天再来', saveBtn: '保存图片', saveGenerating: '正在生成…', saveFailed: '生成失败，再点一次', againBtn: '‹ 再测一个', saveHintMobile: '长按图片，保存到相册', saveHintDesktop: '已下载 · 也可以长按或右键保存这张图', toggleLabel: 'EN', backLabel: '返回', cardAlt: '估值卡片', incomeTitle: '想赚奖励积分和被动收入？', incomeText: '本站的基础功能——做卡、估值、分享——都不用注册，打开就能玩。如果想赚 EW/ART 奖励积分，或者通过 earnway.art 的每日任务获得被动收入，需要先在平台注册；提现时要完成 KYC 身份验证。这个集成只是一个可选的增值项，不会干扰核心体验。', incomeBtn: '前往 earnway.art →', incomeBlog: '核心业务说明：靠趋势关键词赚广告收入', refLabel: '推荐人', refYes: '有推荐人', refNo: '没有推荐人', refPlaceholder: '输入推荐码，或粘贴推荐人链接', refNote: '分享这条链接。有人通过它注册并充值 EW，你就能自动获得佣金。', cardRefLabel: '通过我的链接加入：' },
+      en: { pageTitle: 'CardLab · X Value Calculator', homeFoot: "One input · One result · One card. That's it.", liveTag: 'Try it', toolNoTpl: 'Tool {no} · {batch}', defaultCta: 'Start', formErrorEmpty: "Enter a username first — anyone's will do", formErrorNoPack: 'This tool is still in the works. Check back soon.', saveBtn: 'Save image', saveGenerating: 'Generating…', saveFailed: 'Failed — tap to retry', againBtn: '‹ Test another', saveHintMobile: 'Long-press the image to save it', saveHintDesktop: 'Downloaded · you can also long-press or right-click to save', toggleLabel: '中文', backLabel: 'Back', cardAlt: 'Valuation card', incomeTitle: 'Want reward points and passive income?', incomeText: 'The basics here — creating, valuing, and sharing cards — are available without registration. If you wish to earn "EW/ART" reward points, or generate passive income through daily tasks on earnway.art, you must register on the platform; identity verification (KYC) is required for withdrawals. This integration is an optional value-add and does not interfere with the core experience.', incomeBtn: 'Go to earnway.art →', incomeBlog: 'Core business: generating ad revenue with trending keywords', refLabel: 'Referrer', refYes: 'I have a referrer', refNo: 'No referrer', refPlaceholder: "Referral code or referrer's link", refNote: 'Share this link. When someone registers and tops up EW, you earn automatically.', cardRefLabel: 'Join via my link:' }
     }
   };
   var Config = {
@@ -139,6 +139,15 @@
     var refBase = (inc && inc.refBase) || plain;
     var refPath = (inc && inc.refPath) || '/register.php?ref=';
     return refBase.replace(/\/$/, '') + refPath + encodeURIComponent(code);
+  }
+  /* 推荐人是否真正生效（选了「有推荐人」且填出了有效推荐码）：
+     生效时返回拼好的推荐链接全文，否则返回空串。卡片层用它决定
+     是否在卡面显示推荐链接、二维码是否改编推荐链接（雇主三轮反馈：
+     卡片送出去要能推广，保存图片里必须带推荐链接）。 */
+  function activeRefUrl() {
+    if (!referral.has) return '';
+    if (!extractRefCode(referral.code)) return '';
+    return incomeUrl();
   }
   function applyReferral() {
     var u = ui();
@@ -305,10 +314,17 @@
       $('card-wm-note').textContent = cardCfg.note || '';
       var base = window.location.origin + window.location.pathname;
       $('card-link').textContent = base.replace(/^https?:\/\//, '').replace(/\/$/, '');
+      /* 推荐人生效时：卡面页脚上方显示推荐链接全文，二维码改编这条
+         链接（扫码直达带 ref 的注册页）；未生效时整行隐藏、二维码
+         仍编本站深链，卡面与无推荐人时完全一致。 */
+      var refUrl = activeRefUrl();
+      $('card-ref-label').textContent = ui().cardRefLabel || fb('通过我的链接加入：', 'Join via my link:');
+      $('card-ref-url').textContent = refUrl;
+      $('card-ref').classList.toggle('hidden', !refUrl);
       var qrBox = $('card-qr');
       qrBox.innerHTML = '';
       /* global QRCode */
-      new QRCode(qrBox, { text: deepLink(tool), width: 92, height: 92, correctLevel: QRCode.CorrectLevel.M });
+      new QRCode(qrBox, { text: refUrl || deepLink(tool), width: 92, height: 92, correctLevel: QRCode.CorrectLevel.M });
     }
   };
   function fillCard(tool, r, pack) {
@@ -397,8 +413,9 @@
     var cloneQr = clone.querySelector('.card-qr');
     if (cloneQr && lastTool) {
       cloneQr.innerHTML = '';
+      /* 与卡面一致：推荐人生效时导出图的二维码同样编推荐链接 */
       /* global QRCode */
-      new QRCode(cloneQr, { text: deepLink(lastTool), width: 92, height: 92, correctLevel: QRCode.CorrectLevel.M });
+      new QRCode(cloneQr, { text: activeRefUrl() || deepLink(lastTool), width: 92, height: 92, correctLevel: QRCode.CorrectLevel.M });
     }
     /* 克隆里写终值并同步已算好的终值字号，避免导出到滚动动画中间帧或字号溢出 */
     var cloneValue = clone.querySelector('.card-value');
