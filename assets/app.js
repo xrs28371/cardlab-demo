@@ -45,10 +45,10 @@
     if (qLang && LANG_FILES[qLang]) lang = qLang;
   } catch (e) {}
   var FALLBACK_I18N = {
-    income: { url: 'https://earnway.art', blogUrl: 'https://earnway.art/blog/generating-ad-revenue-google-trending-keywords-earnway-art', refParam: 'ref', commissionNote: '' },
+    income: { url: 'https://earnway.art', blogUrl: 'https://earnway.art/blog/generating-ad-revenue-google-trending-keywords-earnway-art', refBase: 'https://earnway.art', refPath: '/register.php?ref=', commissionNote: '' },
     ui: {
-      zh: { pageTitle: '卡片工场 · X 价值计算器', homeFoot: '一个输入框 · 一个结果 · 一张卡片，够了。', liveTag: '立即测', toolNoTpl: '工具 {no} · {batch}', defaultCta: '开始', formErrorEmpty: '先填一个用户名，随便谁的都行', formErrorNoPack: '这个工具还在准备中，过几天再来', saveBtn: '保存图片', saveGenerating: '正在生成…', saveFailed: '生成失败，再点一次', againBtn: '‹ 再测一个', saveHintMobile: '长按图片，保存到相册', saveHintDesktop: '已下载 · 也可以长按或右键保存这张图', toggleLabel: 'EN', backLabel: '返回', cardAlt: '估值卡片', incomeTitle: '想赚奖励积分和被动收入？', incomeText: '本站的基础功能——做卡、估值、分享——都不用注册，打开就能玩。如果想赚 EW/ART 奖励积分，或者通过 earnway.art 的每日任务获得被动收入，需要先在平台注册；提现时要完成 KYC 身份验证。这个集成只是一个可选的增值项，不会干扰核心体验。', incomeBtn: '前往 earnway.art →', incomeBlog: '核心业务说明：靠趋势关键词赚广告收入', refLabel: '推荐人', refYes: '有推荐人', refNo: '没有推荐人', refPlaceholder: '输入推荐码，或粘贴推荐人链接', refNote: '通过推荐人链接注册，推荐人可获得佣金。' },
-      en: { pageTitle: 'CardLab · X Value Calculator', homeFoot: "One input · One result · One card. That's it.", liveTag: 'Try it', toolNoTpl: 'Tool {no} · {batch}', defaultCta: 'Start', formErrorEmpty: "Enter a username first — anyone's will do", formErrorNoPack: 'This tool is still in the works. Check back soon.', saveBtn: 'Save image', saveGenerating: 'Generating…', saveFailed: 'Failed — tap to retry', againBtn: '‹ Test another', saveHintMobile: 'Long-press the image to save it', saveHintDesktop: 'Downloaded · you can also long-press or right-click to save', toggleLabel: '中文', backLabel: 'Back', cardAlt: 'Valuation card', incomeTitle: 'Want reward points and passive income?', incomeText: 'The basics here — creating, valuing, and sharing cards — are available without registration. If you wish to earn "EW/ART" reward points, or generate passive income through daily tasks on earnway.art, you must register on the platform; identity verification (KYC) is required for withdrawals. This integration is an optional value-add and does not interfere with the core experience.', incomeBtn: 'Go to earnway.art →', incomeBlog: 'Core business: generating ad revenue with trending keywords', refLabel: 'Referrer', refYes: 'I have a referrer', refNo: 'No referrer', refPlaceholder: "Referral code or referrer's link", refNote: "Register through a referrer's link, and your referrer earns a commission." }
+      zh: { pageTitle: '卡片工场 · X 价值计算器', homeFoot: '一个输入框 · 一个结果 · 一张卡片，够了。', liveTag: '立即测', toolNoTpl: '工具 {no} · {batch}', defaultCta: '开始', formErrorEmpty: '先填一个用户名，随便谁的都行', formErrorNoPack: '这个工具还在准备中，过几天再来', saveBtn: '保存图片', saveGenerating: '正在生成…', saveFailed: '生成失败，再点一次', againBtn: '‹ 再测一个', saveHintMobile: '长按图片，保存到相册', saveHintDesktop: '已下载 · 也可以长按或右键保存这张图', toggleLabel: 'EN', backLabel: '返回', cardAlt: '估值卡片', incomeTitle: '想赚奖励积分和被动收入？', incomeText: '本站的基础功能——做卡、估值、分享——都不用注册，打开就能玩。如果想赚 EW/ART 奖励积分，或者通过 earnway.art 的每日任务获得被动收入，需要先在平台注册；提现时要完成 KYC 身份验证。这个集成只是一个可选的增值项，不会干扰核心体验。', incomeBtn: '前往 earnway.art →', incomeBlog: '核心业务说明：靠趋势关键词赚广告收入', refLabel: '推荐人', refYes: '有推荐人', refNo: '没有推荐人', refPlaceholder: '输入推荐码，或粘贴推荐人链接', refNote: '分享这条链接。有人通过它注册并充值 EW，你就能自动获得佣金。' },
+      en: { pageTitle: 'CardLab · X Value Calculator', homeFoot: "One input · One result · One card. That's it.", liveTag: 'Try it', toolNoTpl: 'Tool {no} · {batch}', defaultCta: 'Start', formErrorEmpty: "Enter a username first — anyone's will do", formErrorNoPack: 'This tool is still in the works. Check back soon.', saveBtn: 'Save image', saveGenerating: 'Generating…', saveFailed: 'Failed — tap to retry', againBtn: '‹ Test another', saveHintMobile: 'Long-press the image to save it', saveHintDesktop: 'Downloaded · you can also long-press or right-click to save', toggleLabel: '中文', backLabel: 'Back', cardAlt: 'Valuation card', incomeTitle: 'Want reward points and passive income?', incomeText: 'The basics here — creating, valuing, and sharing cards — are available without registration. If you wish to earn "EW/ART" reward points, or generate passive income through daily tasks on earnway.art, you must register on the platform; identity verification (KYC) is required for withdrawals. This integration is an optional value-add and does not interfere with the core experience.', incomeBtn: 'Go to earnway.art →', incomeBlog: 'Core business: generating ad revenue with trending keywords', refLabel: 'Referrer', refYes: 'I have a referrer', refNo: 'No referrer', refPlaceholder: "Referral code or referrer's link", refNote: 'Share this link. When someone registers and tops up EW, you earn automatically.' }
     }
   };
   var Config = {
@@ -107,34 +107,38 @@
      语言切换整套重渲染后由 applyChrome 重新刷回，不丢）：
        · 没有推荐人 → 主按钮走 income.url 普通链接；
        · 有推荐人 → 展开输入框，用户填推荐码或粘贴整条推荐链接
-         （粘链接时自动抽出参数值），主按钮链接拼成
-         income.url + '?' + income.refParam + '=' + 编码后的推荐码，
-         参数名只改 i18n.json 的 income.refParam 一处即可换格式。
-     佣金说明句来自 ui.refNote；具体比例口径雇主未定，先由
-     income.commissionNote 配置留空位，填了才显示第二行。 */
+         （粘链接时自动抽出 ref 参数值），主按钮链接按雇主确认的
+         正式格式生成：income.refBase + income.refPath + 推荐码，
+         即默认 https://earnway.art/register.php?ref=<推荐码>；
+         基址与路径都在 i18n.json 里，换站/换路径只改配置。
+         还没填码时主按钮先回普通链接。输入框不预填任何示例真码。
+     佣金说明句来自 ui.refNote（定性口径，借雇主原站文案）；
+     比例数字雇主明示不显示，income.commissionNote 保持空、
+     不渲染任何比例。 */
   var referral = { has: false, code: '' };
-  function extractRefCode(raw, param) {
+  function extractRefCode(raw) {
     var v = String(raw || '').trim();
     if (!v) return '';
     if (/^https?:\/\//i.test(v)) {
       try {
-        var fromUrl = new URL(v).searchParams.get(param);
+        var fromUrl = new URL(v).searchParams.get('ref');
         if (fromUrl) return fromUrl;
       } catch (e) {}
-      var m = v.match(new RegExp('[?&]' + param + '=([^&#]+)'));
+      var m = v.match(/[?&]ref=([^&#]+)/);
       if (m) { try { return decodeURIComponent(m[1]); } catch (e2) { return m[1]; } }
-      return ''; /* 粘了链接但里面没有推荐参数：不把整条链接当推荐码拼 */
+      return ''; /* 粘了链接但里面没有 ref 参数：不把整条链接当推荐码拼 */
     }
     return v.replace(/\s+/g, '');
   }
   function incomeUrl() {
     var inc = (Config.i18n && Config.i18n.income) || FALLBACK_I18N.income;
-    var base = (inc && inc.url) || 'https://earnway.art';
-    if (!referral.has) return base;
-    var param = (inc && inc.refParam) || 'ref';
-    var code = extractRefCode(referral.code, param);
-    if (!code) return base;
-    return base + (base.indexOf('?') === -1 ? '?' : '&') + param + '=' + encodeURIComponent(code);
+    var plain = (inc && inc.url) || 'https://earnway.art';
+    if (!referral.has) return plain;
+    var code = extractRefCode(referral.code);
+    if (!code) return plain;
+    var refBase = (inc && inc.refBase) || plain;
+    var refPath = (inc && inc.refPath) || '/register.php?ref=';
+    return refBase.replace(/\/$/, '') + refPath + encodeURIComponent(code);
   }
   function applyReferral() {
     var u = ui();

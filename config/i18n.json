@@ -2,7 +2,8 @@
  "income": {
   "url": "https://earnway.art",
   "blogUrl": "https://earnway.art/blog/generating-ad-revenue-google-trending-keywords-earnway-art",
-  "refParam": "ref",
+  "refBase": "https://earnway.art",
+  "refPath": "/register.php?ref=",
   "commissionNote": ""
  },
  "ui": {
@@ -31,7 +32,7 @@
    "refYes": "I have a referrer",
    "refNo": "No referrer",
    "refPlaceholder": "Referral code or referrer's link",
-   "refNote": "Register through a referrer's link, and your referrer earns a commission."
+   "refNote": "Share this link. When someone registers and tops up EW, you earn automatically."
   },
   "zh": {
    "againBtn": "‹ 再测一个",
@@ -58,7 +59,7 @@
    "refYes": "有推荐人",
    "refNo": "没有推荐人",
    "refPlaceholder": "输入推荐码，或粘贴推荐人链接",
-   "refNote": "通过推荐人链接注册，推荐人可获得佣金。"
+   "refNote": "分享这条链接。有人通过它注册并充值 EW，你就能自动获得佣金。"
   }
  }
 }
