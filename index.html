@@ -17,11 +17,11 @@
   <header class="hero">
     <div class="brand">
       <span class="brand-tile">▣</span>
-      <span class="brand-name" id="site-name">卡片工场</span>
+      <span class="brand-name" id="site-name">CardLab</span>
       <span class="brand-en" id="site-name-en">CARDLAB</span>
     </div>
     <h1 class="hero-title" id="site-slogan">We only make cards worth screenshotting and sharing</h1>
-    <p class="trust"><span class="trust-dot"></span><span id="site-trust">不登录 · 不授权 · 不存你的信息</span></p>
+    <p class="trust"><span class="trust-dot"></span><span id="site-trust">No sign-up · No login · Nothing about you is stored</span></p>
   </header>
   <section id="tool-grid" class="tool-grid"></section>
   <section class="income" id="income-block">
@@ -34,42 +34,54 @@
         <button type="button" class="ref-opt active" id="ref-no" aria-pressed="true">No referrer</button>
       </div>
       <div class="ref-fields hidden" id="ref-fields">
-        <input id="ref-input" type="text" placeholder="Referral code or referrer's link" maxlength="300" autocomplete="off">
+        <input id="ref-input" type="text" placeholder="Referral code or referrer's link" maxlength="64" autocomplete="off">
         <p class="ref-note" id="ref-note">Share this link. When someone registers and tops up EW, you earn automatically.</p>
         <p class="ref-commission hidden" id="ref-commission"></p>
       </div>
     </div>
-    <a class="income-btn" id="income-btn" href="https://earnway.art" target="_blank" rel="noopener">前往 earnway.art →</a>
+    <a class="income-btn" id="income-btn" href="https://earnway.art" target="_blank" rel="noopener">Go to earnway.art →</a>
     <a class="income-blog" id="income-blog" href="https://earnway.art/blog/generating-ad-revenue-google-trending-keywords-earnway-art" target="_blank" rel="noopener">Core business: generating ad revenue with trending keywords</a>
   </section>
-  <footer class="home-foot" id="home-foot">一个输入框 · 一个结果 · 一张卡片，够了。</footer>
+  <footer class="home-foot" id="home-foot">One input · One result · One card. That's it.</footer>
 </main>
 
 <!-- ===== 视图二：工具页（通用壳，文案由配置注入；工具引擎按 id 注册） ===== -->
 <main id="view-tool" class="view hidden">
-  <button class="back" id="btn-back-home" aria-label="返回">‹</button>
+  <button class="back" id="btn-back-home" aria-label="Back">‹</button>
   <header class="tool-head">
-    <p class="tool-no" id="tool-no">工具 01 · 首发</p>
-    <h2 class="tool-title" id="tool-title">X 价值计算器</h2>
-    <p class="tool-desc" id="tool-desc">输入一个用户名，3 秒算出它值多少杯咖啡。</p>
+    <p class="tool-no" id="tool-no">Tool 01 · Launch</p>
+    <h2 class="tool-title" id="tool-title">X Value Calculator</h2>
+    <p class="tool-desc" id="tool-desc">Type in a username — in 3 seconds, see what it's worth in cups of coffee</p>
   </header>
   <form id="value-form" class="value-form" autocomplete="off">
     <div class="input-wrap">
       <span class="at">@</span>
-      <input id="handle-input" type="text" placeholder="输入用户名" maxlength="30" inputmode="text">
+      <input id="handle-input" type="text" placeholder="Enter a username" maxlength="30" inputmode="text">
     </div>
-    <p class="form-error hidden" id="form-error">先填一个用户名，随便谁的都行</p>
-    <button type="submit" class="cta" id="tool-cta">开始估值</button>
+    <p class="form-error hidden" id="form-error">Enter a username first — anyone's will do</p>
+    <button type="submit" class="cta" id="tool-cta">Calculate value</button>
   </form>
-  <p class="trust trust-center"><span class="trust-dot"></span><span id="tool-trust">不登录 · 不授权 · 不存你的用户名</span></p>
-  <p class="fineprint" id="tool-fineprint">估值公式纯属虚构，图一乐。</p>
+  <!-- 推荐人入口（雇主四轮反馈：入口不能只埋在首页收入块，工具页也要有，
+       与收入块共用同一份 referral 状态，两处改动实时同步） -->
+  <section class="tool-ref" id="tool-ref-box">
+    <p class="tool-ref-title" id="tool-ref-title">Have a referrer? Add their code — your card will carry their referral link</p>
+    <div class="ref-toggle" role="group" aria-label="Referrer">
+      <button type="button" class="ref-opt" id="tool-ref-yes" aria-pressed="false">I have a referrer</button>
+      <button type="button" class="ref-opt active" id="tool-ref-no" aria-pressed="true">No referrer</button>
+    </div>
+    <div class="ref-fields hidden" id="tool-ref-fields">
+      <input id="tool-ref-input" type="text" placeholder="Referral code or referrer's link" maxlength="64" autocomplete="off">
+    </div>
+  </section>
+  <p class="trust trust-center"><span class="trust-dot"></span><span id="tool-trust">No sign-up · No login · Your username is never stored</span></p>
+  <p class="fineprint" id="tool-fineprint">The valuation formula is completely made up. Just for fun.</p>
 </main>
 
 <!-- ===== 分析中遮罩（步骤文案与时长均来自配置） ===== -->
 <div id="analysis" class="analysis hidden">
   <div class="analysis-box">
     <div class="spinner"></div>
-    <p id="analysis-text">正在读取你的影响力…</p>
+    <p id="analysis-text">Calculating your worth…</p>
     <div class="progress"><div class="progress-bar" id="progress-bar"></div></div>
   </div>
 </div>
@@ -81,18 +93,18 @@
       <div class="card-glow cg1"></div><div class="card-glow cg2"></div>
       <div class="card-inner">
         <div class="card-top">
-          <span class="card-tool" id="card-tool-name">X 价值计算器</span>
-          <span class="card-brand" id="card-brand">▣ 卡片工场</span>
+          <span class="card-tool" id="card-tool-name">X Value Calculator</span>
+          <span class="card-brand" id="card-brand">▣ CardLab</span>
         </div>
         <p class="card-handle" id="card-handle">@username</p>
         <div class="card-stage">
           <div class="value-glow"></div>
-          <p class="card-label" id="card-label">估值身价</p>
+          <p class="card-label" id="card-label">ESTIMATED WORTH</p>
           <p class="card-value" id="card-value">$0</p>
-          <p class="card-equiv"><span id="card-equiv">≈ 0 杯咖啡</span></p>
+          <p class="card-equiv"><span id="card-equiv">≈ 0 cups of coffee</span></p>
         </div>
-        <p class="card-tier"><span id="card-tier">深藏不露潜力股</span></p>
-        <div class="card-copy-wrap"><p class="card-copy" id="card-copy">数字不大，气势不能输。</p></div>
+        <p class="card-tier"><span id="card-tier">Cyber Passerby</span></p>
+        <div class="card-copy-wrap"><p class="card-copy" id="card-copy">Net worth: pocket change. Opinions on world affairs: priceless.</p></div>
         <div class="card-divider"></div>
         <div class="card-ref hidden" id="card-ref">
           <span class="card-ref-label" id="card-ref-label">Join via my link:</span>
@@ -100,24 +112,24 @@
         </div>
         <div class="card-bottom">
           <div class="card-watermark">
-            <p class="wm-name" id="card-wm-name">卡片工场 CARDLAB</p>
+            <p class="wm-name" id="card-wm-name">CardLab CARDLAB</p>
             <p class="wm-link" id="card-link">cardlab</p>
-            <p class="wm-note" id="card-wm-note">估值纯属虚构 · 娱乐而已</p>
+            <p class="wm-note" id="card-wm-note">Made-up numbers · Just for fun</p>
           </div>
           <div class="card-qr" id="card-qr"></div>
         </div>
       </div>
     </div>
   </div>
-  <button class="cta cta-save" id="btn-save">保存图片</button>
-  <button class="quiet-link" id="btn-again">‹ 再测一个</button>
+  <button class="cta cta-save" id="btn-save">Save image</button>
+  <button class="quiet-link" id="btn-again">‹ Test another</button>
 </main>
 
 <!-- ===== 保存结果浮层：移动端长按保存 ===== -->
 <div id="save-overlay" class="save-overlay hidden">
-  <button class="save-close" id="btn-save-close" aria-label="关闭">×</button>
-  <img id="save-img" alt="估值卡片">
-  <p class="save-hint" id="save-hint">长按图片，保存到相册</p>
+  <button class="save-close" id="btn-save-close" aria-label="Close">×</button>
+  <img id="save-img" alt="Valuation card">
+  <p class="save-hint" id="save-hint">Long-press the image to save it</p>
 </div>
 
 <script src="assets/vendor/html2canvas.min.js"></script>

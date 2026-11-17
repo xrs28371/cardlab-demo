@@ -33,7 +33,9 @@
    "refYes": "I have a referrer",
    "refNo": "No referrer",
    "refPlaceholder": "Referral code or referrer's link",
-   "refNote": "Share this link. When someone registers and tops up EW, you earn automatically."
+   "refNote": "Share this link. When someone registers and tops up EW, you earn automatically.",
+   "soonTag": "Coming soon",
+   "toolRefTitle": "Have a referrer? Add their code — your card will carry their referral link"
   },
   "zh": {
    "againBtn": "‹ 再测一个",
@@ -61,7 +63,9 @@
    "refYes": "有推荐人",
    "refNo": "没有推荐人",
    "refPlaceholder": "输入推荐码，或粘贴推荐人链接",
-   "refNote": "分享这条链接。有人通过它注册并充值 EW，你就能自动获得佣金。"
+   "refNote": "分享这条链接。有人通过它注册并充值 EW，你就能自动获得佣金。",
+   "soonTag": "即将上线",
+   "toolRefTitle": "有推荐人？填上推荐码，你生成的卡就会带上他的推荐链接"
   }
  }
 }

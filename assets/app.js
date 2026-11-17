@@ -28,6 +28,13 @@
     site: { "site": { "name": "卡片工场", "nameEn": "CARDLAB", "slogan": "只生产值得截图发群的卡片", "trustLine": "不登录 · 不授权 · 不存你的信息" }, "tools": [{ "id": "x-value", "no": "01", "name": "X 价值计算器", "desc": "输入一个用户名，3 秒算出它值多少杯咖啡", "status": "live", "batch": "首发", "cta": "开始估值", "inputPlaceholder": "输入用户名", "trustLine": "不登录 · 不授权 · 不存你的用户名", "fineprint": "估值公式纯属虚构，图一乐。", "pack": "config/valuation.json", "template": "x-value" }] },
     packs: { "x-value": { "tool": "x-value", "min": 800, "max": 9800000, "exponent": 0.7, "coffeePrice": 5, "currency": "$", "equivUnit": "杯咖啡", "analysisMs": 1500, "analysisTexts": ["正在假装连线 X 数据库…", "正在翻看你的黑历史推文…", "正在计算围观群众数量…", "正在生成你的身价…"], "tiers": [{ "id": "high", "label": "赛博顶流大户", "min": 1000000 }, { "id": "mid", "label": "群里的气氛担当", "min": 60000 }, { "id": "low", "label": "赛博纯路人", "min": 0 }], "copies": { "high": ["发条推文的功夫，把普通人半年的社保都赚出来了。", "平时在群里潜水装死，原来是在闷声干大事。", "建议直接截图甩给甲方，问他们懂不懂行情。", "这身价，路过的品牌方看你一眼都觉得高攀了。"], "mid": ["赚了点小钱但不敢告诉亲戚，最尴尬的身价区间。", "群里发言终于有人接茬了，这就是排面。", "离财富自由还差点意思，但咖啡已经敢点大杯加浓缩了。", "这身价，发红包都得手抖一下。"], "low": ["账号里最值钱的，是你那点所剩无几的幽默感。", "属于在赛博世界做慈善，天天免费给平台贡献活跃度。", "就这三瓜两枣的身价，天天还操心世界局势。", "连赛博难民都算不上，充其量是个路过的吃瓜群众。"] }, "card": { "label": "估值身价", "watermarkName": "卡片工场 CARDLAB", "note": "估值纯属虚构 · 娱乐而已" } } }
   };
+  /* 英文兜底（与 FALLBACK 对位）：英文模式下配置拉取失败时也不能整站
+     掉回中文——内容与 config/tools.en.json + valuation.en.json 保持一致 */
+  var FALLBACK_EN = {
+    site: { "site": { "name": "CardLab", "nameEn": "CARDLAB", "slogan": "We only make cards worth screenshotting and sharing", "trustLine": "No sign-up · No login · Nothing about you is stored" }, "tools": [{ "id": "x-value", "no": "01", "name": "X Value Calculator", "desc": "Type in a username — in 3 seconds, see what it's worth in cups of coffee", "status": "live", "batch": "Launch", "cta": "Calculate value", "inputPlaceholder": "Enter a username", "trustLine": "No sign-up · No login · Your username is never stored", "fineprint": "The valuation formula is completely made up. Just for fun.", "pack": "config/valuation.en.json", "template": "x-value" }, { "id": "career-test", "no": "02", "name": "Career Personality Roast", "desc": "10 either-or questions that reveal your work persona", "status": "soon", "batch": "Launch", "pack": null, "template": null }, { "id": "stance", "no": "03", "name": "Hot Take Machine", "desc": "When something trends, tap to pick a side and get your card", "status": "soon", "batch": "Launch", "pack": null, "template": null }, { "id": "group-vote", "no": "04", "name": "Group Chat Vote Ender", "desc": "Settle the argument your group chat can't — one vote decides", "status": "later", "batch": "Wave 2", "pack": null, "template": null }, { "id": "flower", "no": "05", "name": "Digital Bouquet", "desc": "Send flowers that never wilt — they unlock when opened", "status": "later", "batch": "Wave 2", "pack": null, "template": null }, { "id": "fake-ai", "no": "06", "name": "Human Pretending to Be AI", "desc": "Real humans, timed answers — see who can pass as a bot", "status": "later", "batch": "Review-gated", "pack": null, "template": null }] },
+    packs: { "x-value": { "tool": "x-value", "min": 800, "max": 9800000, "exponent": 0.7, "coffeePrice": 5, "currency": "$", "equivUnit": "cups of coffee", "analysisMs": 1500, "analysisTexts": ["Pretending to connect to the X database…", "Digging through your old posts…", "Counting the lurkers…", "Calculating your worth…"], "tiers": [{ "id": "high", "label": "Cyber Whale", "min": 1000000 }, { "id": "mid", "label": "Group Chat MVP", "min": 60000 }, { "id": "low", "label": "Cyber Passerby", "min": 0 }], "copies": { "high": ["One post from you earns what takes most people half a year.", "All that lurking in group chats — turns out you were quietly building an empire.", "Screenshot this and send it to your clients. They'll get the picture.", "Brands walk past you and feel out of their league."], "mid": ["Decent money, but you wouldn't tell your family. The awkward middle.", "People actually reply to you in group chats now. That's clout.", "Not quite financial freedom, but a large coffee with an extra shot is no longer a big decision.", "This is the kind of net worth that makes your hand shake before sending a big gift."], "low": ["The most valuable thing on your account is what's left of your sense of humor.", "You're doing charity work for the platform — free engagement, every single day.", "Net worth: pocket change. Opinions on world affairs: priceless.", "Not even a cyber refugee — just a passerby with a front-row seat."] }, "card": { "label": "ESTIMATED WORTH", "watermarkName": "CardLab CARDLAB", "note": "Made-up numbers · Just for fun" } } }
+  };
+  function fallbackFor() { return lang === 'en' ? FALLBACK_EN : FALLBACK; }
   function fetchJson(url) {
     return fetch(url).then(function (r) { if (!r.ok) throw new Error(url); return r.json(); });
   }
@@ -47,8 +54,8 @@
   var FALLBACK_I18N = {
     income: { url: 'https://earnway.art', blogUrl: 'https://earnway.art/blog/generating-ad-revenue-google-trending-keywords-earnway-art', refBase: 'https://earnway.art', refPath: '/register.php?ref=', commissionNote: '' },
     ui: {
-      zh: { pageTitle: '卡片工场 · X 价值计算器', homeFoot: '一个输入框 · 一个结果 · 一张卡片，够了。', liveTag: '立即测', toolNoTpl: '工具 {no} · {batch}', defaultCta: '开始', formErrorEmpty: '先填一个用户名，随便谁的都行', formErrorNoPack: '这个工具还在准备中，过几天再来', saveBtn: '保存图片', saveGenerating: '正在生成…', saveFailed: '生成失败，再点一次', againBtn: '‹ 再测一个', saveHintMobile: '长按图片，保存到相册', saveHintDesktop: '已下载 · 也可以长按或右键保存这张图', toggleLabel: 'EN', backLabel: '返回', cardAlt: '估值卡片', incomeTitle: '想赚奖励积分和被动收入？', incomeText: '本站的基础功能——做卡、估值、分享——都不用注册，打开就能玩。如果想赚 EW/ART 奖励积分，或者通过 earnway.art 的每日任务获得被动收入，需要先在平台注册；提现时要完成 KYC 身份验证。这个集成只是一个可选的增值项，不会干扰核心体验。', incomeBtn: '前往 earnway.art →', incomeBlog: '核心业务说明：靠趋势关键词赚广告收入', refLabel: '推荐人', refYes: '有推荐人', refNo: '没有推荐人', refPlaceholder: '输入推荐码，或粘贴推荐人链接', refNote: '分享这条链接。有人通过它注册并充值 EW，你就能自动获得佣金。', cardRefLabel: '通过我的链接加入：' },
-      en: { pageTitle: 'CardLab · X Value Calculator', homeFoot: "One input · One result · One card. That's it.", liveTag: 'Try it', toolNoTpl: 'Tool {no} · {batch}', defaultCta: 'Start', formErrorEmpty: "Enter a username first — anyone's will do", formErrorNoPack: 'This tool is still in the works. Check back soon.', saveBtn: 'Save image', saveGenerating: 'Generating…', saveFailed: 'Failed — tap to retry', againBtn: '‹ Test another', saveHintMobile: 'Long-press the image to save it', saveHintDesktop: 'Downloaded · you can also long-press or right-click to save', toggleLabel: '中文', backLabel: 'Back', cardAlt: 'Valuation card', incomeTitle: 'Want reward points and passive income?', incomeText: 'The basics here — creating, valuing, and sharing cards — are available without registration. If you wish to earn "EW/ART" reward points, or generate passive income through daily tasks on earnway.art, you must register on the platform; identity verification (KYC) is required for withdrawals. This integration is an optional value-add and does not interfere with the core experience.', incomeBtn: 'Go to earnway.art →', incomeBlog: 'Core business: generating ad revenue with trending keywords', refLabel: 'Referrer', refYes: 'I have a referrer', refNo: 'No referrer', refPlaceholder: "Referral code or referrer's link", refNote: 'Share this link. When someone registers and tops up EW, you earn automatically.', cardRefLabel: 'Join via my link:' }
+      zh: { pageTitle: '卡片工场 · X 价值计算器', homeFoot: '一个输入框 · 一个结果 · 一张卡片，够了。', liveTag: '立即测', toolNoTpl: '工具 {no} · {batch}', defaultCta: '开始', formErrorEmpty: '先填一个用户名，随便谁的都行', formErrorNoPack: '这个工具还在准备中，过几天再来', saveBtn: '保存图片', saveGenerating: '正在生成…', saveFailed: '生成失败，再点一次', againBtn: '‹ 再测一个', saveHintMobile: '长按图片，保存到相册', saveHintDesktop: '已下载 · 也可以长按或右键保存这张图', toggleLabel: 'EN', backLabel: '返回', cardAlt: '估值卡片', incomeTitle: '想赚奖励积分和被动收入？', incomeText: '本站的基础功能——做卡、估值、分享——都不用注册，打开就能玩。如果想赚 EW/ART 奖励积分，或者通过 earnway.art 的每日任务获得被动收入，需要先在平台注册；提现时要完成 KYC 身份验证。这个集成只是一个可选的增值项，不会干扰核心体验。', incomeBtn: '前往 earnway.art →', incomeBlog: '核心业务说明：靠趋势关键词赚广告收入', refLabel: '推荐人', refYes: '有推荐人', refNo: '没有推荐人', refPlaceholder: '输入推荐码，或粘贴推荐人链接', refNote: '分享这条链接。有人通过它注册并充值 EW，你就能自动获得佣金。', cardRefLabel: '通过我的链接加入：', soonTag: '即将上线', toolRefTitle: '有推荐人？填上推荐码，你生成的卡就会带上他的推荐链接' },
+      en: { pageTitle: 'CardLab · X Value Calculator', homeFoot: "One input · One result · One card. That's it.", liveTag: 'Try it', toolNoTpl: 'Tool {no} · {batch}', defaultCta: 'Start', formErrorEmpty: "Enter a username first — anyone's will do", formErrorNoPack: 'This tool is still in the works. Check back soon.', saveBtn: 'Save image', saveGenerating: 'Generating…', saveFailed: 'Failed — tap to retry', againBtn: '‹ Test another', saveHintMobile: 'Long-press the image to save it', saveHintDesktop: 'Downloaded · you can also long-press or right-click to save', toggleLabel: '中文', backLabel: 'Back', cardAlt: 'Valuation card', incomeTitle: 'Want reward points and passive income?', incomeText: 'The basics here — creating, valuing, and sharing cards — are available without registration. If you wish to earn "EW/ART" reward points, or generate passive income through daily tasks on earnway.art, you must register on the platform; identity verification (KYC) is required for withdrawals. This integration is an optional value-add and does not interfere with the core experience.', incomeBtn: 'Go to earnway.art →', incomeBlog: 'Core business: generating ad revenue with trending keywords', refLabel: 'Referrer', refYes: 'I have a referrer', refNo: 'No referrer', refPlaceholder: "Referral code or referrer's link", refNote: 'Share this link. When someone registers and tops up EW, you earn automatically.', cardRefLabel: 'Join via my link:', soonTag: 'Coming soon', toolRefTitle: 'Have a referrer? Add their code — your card will carry their referral link' }
     }
   };
   var Config = {
@@ -64,12 +71,12 @@
       return Config.loadI18n().then(function () {
         return fetchJson(LANG_FILES[lang]).catch(function () { return null; });
       }).then(function (site) {
-        if (!site) { Config.site = FALLBACK.site; Config.packs = FALLBACK.packs; return Config; }
+        if (!site) { var fbk = fallbackFor(); Config.site = fbk.site; Config.packs = fbk.packs; return Config; }
         Config.site = site;
         Config.packs = {};
         var jobs = site.tools.filter(function (t) { return t.pack; }).map(function (t) {
           return fetchJson(t.pack).then(function (pack) { Config.packs[t.id] = pack; })
-            .catch(function () { if (FALLBACK.packs[t.id]) Config.packs[t.id] = FALLBACK.packs[t.id]; });
+            .catch(function () { var fbk2 = fallbackFor(); if (fbk2.packs[t.id]) Config.packs[t.id] = fbk2.packs[t.id]; });
         });
         return Promise.all(jobs).then(function () { return Config; });
       });
@@ -100,6 +107,7 @@
     var blog = $('income-blog');
     blog.textContent = u.incomeBlog || '';
     if (inc && inc.blogUrl) blog.href = inc.blogUrl;
+    $('tool-ref-title').textContent = u.toolRefTitle || fb('有推荐人？填上推荐码，你生成的卡就会带上他的推荐链接', 'Have a referrer? Add their code — your card will carry their referral link');
   }
 
   /* ================= 推荐人机制（v4 新增） =================
@@ -127,6 +135,12 @@
       var m = v.match(/[?&]ref=([^&#]+)/);
       if (m) { try { return decodeURIComponent(m[1]); } catch (e2) { return m[1]; } }
       return ''; /* 粘了链接但里面没有 ref 参数：不把整条链接当推荐码拼 */
+    }
+    /* 没带协议的链接（如 earnway.art/register.php?ref=XXX）：同样抽 ref 值，
+       别把整条链接当成推荐码拼出坏链 */
+    if (v.indexOf('/') !== -1) {
+      var m2 = v.match(/ref=([^&#\s]+)/);
+      if (m2) { try { return decodeURIComponent(m2[1]); } catch (e3) { return m2[1]; } }
     }
     return v.replace(/\s+/g, '');
   }
@@ -168,6 +182,19 @@
     $('ref-commission').textContent = note;
     $('ref-commission').classList.toggle('hidden', !note);
     $('income-btn').href = incomeUrl();
+    /* 工具页推荐人入口与收入块共用同一份 referral 状态：两处控件
+       （开关、输入框）在每次 applyReferral 时一起按状态刷新，
+       任一处修改另一处立即同步，不存在两套值 */
+    $('tool-ref-yes').textContent = u.refYes || fb('有推荐人', 'I have a referrer');
+    $('tool-ref-no').textContent = u.refNo || fb('没有推荐人', 'No referrer');
+    $('tool-ref-yes').classList.toggle('active', referral.has);
+    $('tool-ref-no').classList.toggle('active', !referral.has);
+    $('tool-ref-yes').setAttribute('aria-pressed', referral.has ? 'true' : 'false');
+    $('tool-ref-no').setAttribute('aria-pressed', referral.has ? 'false' : 'true');
+    $('tool-ref-fields').classList.toggle('hidden', !referral.has);
+    var tInput = $('tool-ref-input');
+    tInput.placeholder = u.refPlaceholder || '';
+    if (tInput.value !== referral.code) tInput.value = referral.code;
   }
 
   /* ================= 2. Router 路由层 ================= */
@@ -205,7 +232,7 @@
         '<span class="tool-main"><span class="tool-name">' + t.name + '</span>' +
         '<span class="tool-desc">' + t.desc + '</span></span>' +
         (t.status === 'live' ? '<span class="tool-tag live">' + (ui().liveTag || fb('立即测', 'Try it')) + '</span>'
-                             : '<span class="tool-tag">' + t.batch + '</span>');
+                             : '<span class="tool-tag">' + (ui().soonTag || fb('即将上线', 'Coming soon')) + '</span>');
       if (t.status === 'live') {
         b.addEventListener('click', function () { openTool(t); });
       }
@@ -299,6 +326,24 @@
   function deepLink(tool) {
     return window.location.origin + window.location.pathname + '#' + tool.id;
   }
+  /* 二维码生成兜底：内容过长时 qrcodejs 会直接抛错（实测 2737 字符的
+     编码后链接让整卡生成中断、用户卡在工具页无任何提示）。先按 M 级
+     生成，失败降 L 级（容量更大），再失败退回兜底文本——卡片永远出得来。 */
+  function makeQR(el, text, fallbackText) {
+    /* global QRCode */
+    var levels = [QRCode.CorrectLevel.M, QRCode.CorrectLevel.L];
+    for (var i = 0; i < levels.length; i++) {
+      try {
+        el.innerHTML = '';
+        new QRCode(el, { text: text, width: 92, height: 92, correctLevel: levels[i] });
+        return;
+      } catch (e) {}
+    }
+    try {
+      el.innerHTML = '';
+      new QRCode(el, { text: fallbackText, width: 92, height: 92, correctLevel: QRCode.CorrectLevel.M });
+    } catch (e2) {}
+  }
   var lastResult = null, lastPack = null, lastTool = null;
   var CardTemplates = {
     'x-value': function (tool, r, pack) {
@@ -306,6 +351,8 @@
       $('card-tool-name').textContent = tool.name;
       $('card-brand').textContent = '▣ ' + Config.site.site.name;
       $('card-handle').textContent = '@' + r.handle;
+      /* 超长用户名自动降字号，避免两行名字把卡面撑出界 */
+      $('card-handle').style.fontSize = r.handle.length > 24 ? '22px' : (r.handle.length > 16 ? '26px' : '');
       $('card-label').textContent = cardCfg.label || '';
       $('card-equiv').textContent = r.equivText;
       $('card-tier').textContent = r.tierLabel;
@@ -319,12 +366,19 @@
          仍编本站深链，卡面与无推荐人时完全一致。 */
       var refUrl = activeRefUrl();
       $('card-ref-label').textContent = ui().cardRefLabel || fb('通过我的链接加入：', 'Join via my link:');
-      $('card-ref-url').textContent = refUrl;
+      var refUrlEl = $('card-ref-url');
+      var rl = refUrl.length;
+      /* 极端长链接（多为误粘的垃圾输入）在色带里中间省略显示，防撑破
+         卡面；链接本体不受影响——主按钮与二维码编的仍是完整链接 */
+      refUrlEl.textContent = rl > 200 ? (refUrl.slice(0, 90) + '…' + refUrl.slice(-40)) : refUrl;
+      /* 推荐链接过长时自动降字号多行排，避免撑破卡面色带；色带默认 19px */
+      refUrlEl.style.fontSize = rl > 200 ? '11px' : (rl > 120 ? '13px' : (rl > 64 ? '15.5px' : ''));
+      refUrlEl.style.lineHeight = rl > 64 ? '1.3' : '';
       $('card-ref').classList.toggle('hidden', !refUrl);
+      /* 色带占高：带推荐链接时整卡切换紧凑间距，卡脚/二维码不被挤出卡外 */
+      $('card').classList.toggle('has-ref', !!refUrl);
       var qrBox = $('card-qr');
-      qrBox.innerHTML = '';
-      /* global QRCode */
-      new QRCode(qrBox, { text: refUrl || deepLink(tool), width: 92, height: 92, correctLevel: QRCode.CorrectLevel.M });
+      makeQR(qrBox, refUrl || deepLink(tool), deepLink(tool));
     }
   };
   function fillCard(tool, r, pack) {
@@ -403,6 +457,8 @@
   }
   $('btn-save').addEventListener('click', function () {
     var btn = $('btn-save');
+    if (btn.dataset.busy) return; /* 生成中连点不重复导出 */
+    btn.dataset.busy = '1';
     btn.textContent = ui().saveGenerating || fb('正在生成…', 'Generating…');
     var holder = document.createElement('div');
     holder.style.cssText = 'position:fixed;left:-9999px;top:0;width:540px;height:960px;overflow:hidden';
@@ -412,10 +468,8 @@
     /* 克隆里重绘二维码：cloneNode 不复制 canvas 位图，空白二维码是最常见的导出坑 */
     var cloneQr = clone.querySelector('.card-qr');
     if (cloneQr && lastTool) {
-      cloneQr.innerHTML = '';
       /* 与卡面一致：推荐人生效时导出图的二维码同样编推荐链接 */
-      /* global QRCode */
-      new QRCode(cloneQr, { text: activeRefUrl() || deepLink(lastTool), width: 92, height: 92, correctLevel: QRCode.CorrectLevel.M });
+      makeQR(cloneQr, activeRefUrl() || deepLink(lastTool), deepLink(lastTool));
     }
     /* 克隆里写终值并同步已算好的终值字号，避免导出到滚动动画中间帧或字号溢出 */
     var cloneValue = clone.querySelector('.card-value');
@@ -430,6 +484,7 @@
       holder.remove();
       btn.textContent = ui().saveBtn || fb('保存图片', 'Save image');
       canvas.toBlob(function (blob) {
+        delete btn.dataset.busy;
         if (!blob) { btn.textContent = ui().saveFailed || fb('生成失败，再点一次', 'Failed — tap to retry'); return; }
         var url = URL.createObjectURL(blob);
         if (!isMobile()) {
@@ -450,6 +505,7 @@
       }, 'image/png');
     }).catch(function () {
       holder.remove();
+      delete btn.dataset.busy;
       btn.textContent = ui().saveFailed || fb('生成失败，再点一次', 'Failed — tap to retry');
     });
   });
@@ -466,7 +522,21 @@
   });
   $('ref-input').addEventListener('input', function () {
     referral.code = $('ref-input').value;
-    $('income-btn').href = incomeUrl();
+    applyReferral(); /* 同步工具页入口的输入框与主按钮链接 */
+  });
+  /* 工具页推荐人入口：与收入块同一份状态，事件同样走 applyReferral */
+  $('tool-ref-yes').addEventListener('click', function () {
+    referral.has = true;
+    applyReferral();
+    $('tool-ref-input').focus();
+  });
+  $('tool-ref-no').addEventListener('click', function () {
+    referral.has = false;
+    applyReferral();
+  });
+  $('tool-ref-input').addEventListener('input', function () {
+    referral.code = $('tool-ref-input').value;
+    applyReferral();
   });
 
   /* ================= 语言切换：整套配置重载，当前视图原地重渲染 ================= */

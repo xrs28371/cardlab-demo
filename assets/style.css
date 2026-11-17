@@ -153,9 +153,18 @@ body{font-family:-apple-system,"PingFang SC","Microsoft YaHei","Segoe UI",sans-s
 .card-copy-wrap{margin-top:26px;background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.035));border:1px solid rgba(255,255,255,.11);border-radius:18px;padding:20px 22px;box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 14px 34px -18px rgba(0,0,0,.6)}
 .card-copy{font-size:26.5px;line-height:1.55;color:rgba(255,255,255,.95)}
 .card-divider{margin-top:auto;height:1px;background:linear-gradient(90deg,transparent,rgba(167,139,250,.35) 30%,rgba(165,243,252,.35) 70%,transparent)}
-.card-ref{margin-top:20px}
-.card-ref-label{display:block;font-size:15px;letter-spacing:2.5px;color:rgba(255,255,255,.55)}
-.card-ref-url{display:block;margin-top:5px;font-size:17px;font-weight:600;color:#7dd3fc;word-break:break-all;line-height:1.4}
+/* 推荐链接色带（雇主四轮反馈：从页脚小字升级为醒目色带，导出图同款） */
+.card-ref{margin-top:20px;background:linear-gradient(92deg,#a5f3fc,#c4b5fd);border-radius:16px;padding:15px 20px 13px;box-shadow:inset 0 1px 0 rgba(255,255,255,.65),0 14px 34px -14px rgba(165,243,252,.55)}
+.card-ref-label{display:block;font-size:16.5px;font-weight:800;letter-spacing:2px;color:#06121a}
+.card-ref-url{display:block;margin-top:4px;font-size:19px;font-weight:800;color:#0a2e52;word-break:break-all;line-height:1.35}
+/* 带推荐色带时的紧凑间距（无色带时版式与原版完全一致） */
+.card.has-ref .card-inner{padding-top:36px}
+.card.has-ref .card-handle{margin-top:38px}
+.card.has-ref .card-stage{padding:20px 0 16px}
+.card.has-ref .card-equiv{margin-top:14px}
+.card.has-ref .card-tier{margin-top:14px}
+.card.has-ref .card-copy-wrap{margin-top:20px;padding:14px 22px}
+.card.has-ref .card-ref{padding:12px 20px 10px}
 .card-bottom{display:flex;justify-content:space-between;align-items:flex-end;margin-top:26px}
 .wm-name{font-size:19px;font-weight:700}
 .wm-link{font-size:16.5px;color:#7dd3fc;margin-top:5px}
@@ -165,6 +174,12 @@ body{font-family:-apple-system,"PingFang SC","Microsoft YaHei","Segoe UI",sans-s
 .cta-save{max-width:430px;margin:22px auto 0}
 .quiet-link{display:block;margin:14px auto 0;background:none;border:none;color:var(--dim);font-size:14.5px;cursor:pointer;font-family:inherit;padding:6px 10px;border-radius:10px;transition:color .2s ease,background .2s ease}
 .quiet-link:active{opacity:.7}
+
+/* 工具页推荐人入口（雇主四轮反馈：高亮区块，与收入块共用状态） */
+.tool-ref{margin-top:22px;border:1px solid rgba(167,139,250,.55);background:linear-gradient(150deg,rgba(124,92,255,.22),rgba(34,211,238,.08));border-radius:16px;padding:16px 16px 14px;box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 14px 30px -18px rgba(124,92,255,.65)}
+.tool-ref-title{font-size:15px;font-weight:800;line-height:1.55;letter-spacing:.3px}
+.tool-ref .ref-toggle{margin-top:12px}
+.tool-ref .ref-fields{margin-top:12px}
 
 /* 保存浮层 */
 .save-overlay{position:fixed;inset:0;z-index:50;background:radial-gradient(70% 50% at 50% 40%,rgba(43,26,94,.3),transparent 70%),rgba(4,5,9,.94);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;animation:fadeIn .25s ease both}
